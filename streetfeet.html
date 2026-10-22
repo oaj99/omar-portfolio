@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streetfeet Case Study</title>
+<meta name="description" content="Streetfeet brand refresh and creative direction by Omar Ali Jehangir: identity, art direction, shoots and a performance ad system that returned 3.6x ROAS.">
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Streetfeet case study, built on the case study template (case-study.html) */
+@font-face{font-family:"Inter"; src:url("fonts/inter-var.woff2") format("woff2"); font-weight:100 900; font-display:swap}
+@font-face{font-family:"Nanum Pen Script"; src:url("fonts/nanum-pen.woff2") format("woff2"); font-weight:400; font-display:swap}
+:root{
+  --fg:#141210; --muted:#6e6355; --accent:#c22f26; --ink:#1f1b16; --paper:#f1e7d2;
+  --sans:"Inter", "Helvetica Neue", Arial, sans-serif; --hand:"Nanum Pen Script", "Bradley Hand", cursive;
+  --gutter:clamp(18px, 2.4vw, 40px); --frame:clamp(8px, 1.1vw, 16px);
+  --grain:url("assets/paper-grain.webp");
+  --shadow-paper:url("assets/shadow-paper.webp") 92 / 92px / 36px stretch;   /* pre-made shadow, not a live blur */
+  --shadow-print:url("assets/shadow-print.webp") 14 / 14px / 6px stretch;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:#fa5298; color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased}
+a{color:inherit; text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+img{display:block; max-width:100%}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important; scroll-behavior:auto!important} }
+
+/* the desk: a fixed layer behind the cards (cheaper than background-attachment:fixed, and works on iOS) */
+.backdrop{position:fixed; inset:0; z-index:-1; pointer-events:none; background-color:#fa5298; background-image:var(--grain)}  /* page colour: this project's brand colour */
+/* section cards on the desk */
+.wrap{display:flex; flex-direction:column; gap:var(--frame); padding:var(--frame)}
+.wrap > *{background:#fdfdfb url("assets/section-grain.webp"); padding:clamp(28px,3.6vw,56px) var(--gutter); margin:0; overflow:clip}
+.top{position:sticky; top:var(--frame); z-index:20; display:flex; justify-content:space-between; align-items:baseline; padding-block:14px!important;
+  border-image:url("assets/shadow-bar.webp") 0 0 40 0 / 0 0 40px 0 / 0 0 40px 0 stretch}
+.caps{font-size:clamp(13px, calc(11.5px + .2vw), 14px); font-weight:500; text-transform:uppercase; letter-spacing:.01em}
+.top a:hover{color:var(--accent)}
+
+/* type */
+.kicker{margin:0 0 14px; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.02em; color:var(--muted)}
+h1{margin:0; font-weight:500; font-size:clamp(44px,9vw,150px); line-height:.92; letter-spacing:-.05em; text-transform:uppercase}
+h2{margin:0 0 clamp(18px,2vw,28px); font-weight:500; font-size:clamp(34px,4.6vw,72px); line-height:1; letter-spacing:-.045em; text-transform:uppercase}
+.lede{margin:clamp(18px,2vw,28px) 0 0; max-width:30ch; font-size:clamp(22px,2.4vw,36px); line-height:1.15; letter-spacing:-.03em}
+.body{max-width:62ch; font-size:clamp(16px,1.2vw,18px); line-height:1.6; color:#2b2b2b}
+.body p{margin:0 0 1em}
+.tbd{color:#8c8577}   /* placeholder copy: replace, then drop the class */
+
+/* paper objects */
+.paper{position:relative; background-color:var(--paper); background-image:var(--grain); border-image:var(--shadow-paper)}
+.tape{position:absolute; top:-14px; left:50%; width:96px; height:28px; transform:translateX(-50%) rotate(-3deg); background:url("assets/tape.webp") center / 100% 100% no-repeat; z-index:2}
+/* a mounted print: white border + small shadow. .slot is the grey stand-in until a real image goes in */
+.print{position:relative; background:#fff; padding:clamp(6px,.8vw,12px); border-image:var(--shadow-print)}
+.print figcaption{padding:8px 2px 0; font-size:12px; color:var(--muted)}
+.slot{display:grid; place-items:center; background:#e9e4d8; color:#8c8577; font-size:12px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; text-align:center; padding:12px}
+.r16x9{aspect-ratio:16/9} .r4x3{aspect-ratio:4/3} .r1x1{aspect-ratio:1} .r4x5{aspect-ratio:4/5}
+
+/* 1. hero */
+.hero .print{margin-top:clamp(28px,3.4vw,52px); transform:rotate(-.4deg)}
+
+/* 2. brief + facts slip */
+.brief{display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr); gap:clamp(28px,4vw,72px); align-items:start}
+.slip{padding:18px 18px 20px; transform:rotate(.8deg)}
+.slip dl{margin:0; border:1px solid #2b2b2b}
+.slip dl > div{display:flex; align-items:baseline; gap:10px; padding:0 12px; min-height:46px; border-top:1px solid #2b2b2b}
+.slip dl > div:first-child{border-top:0}
+.slip dt{flex:none; width:62px; font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; padding-top:8px}
+.slip dd{margin:0; font-family:var(--hand); font-size:clamp(22px,1.9vw,27px); line-height:1.15; color:var(--ink); padding:8px 0 4px; transform:rotate(-.6deg)}
+.slip dd.red{color:var(--accent)}
+
+/* 3. what I did: a ticked checklist in pen */
+.did{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px clamp(16px,2vw,32px)}
+.did li{display:flex; gap:12px; align-items:baseline; padding:12px 0; border-bottom:1px solid #d9d3c6; font-size:clamp(17px,1.4vw,21px); letter-spacing:-.02em}
+.did li::before{content:"✓"; font-family:var(--hand); font-size:1.4em; line-height:0; color:var(--accent)}
+
+/* 4. process: numbered paper notes, each with an image */
+.steps{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:clamp(22px,2.6vw,40px)}
+.step{padding:clamp(14px,1.4vw,20px) clamp(14px,1.4vw,20px) 22px; display:flex; flex-direction:column; gap:14px}
+.step:nth-child(odd){transform:rotate(-.7deg)} .step:nth-child(even){transform:rotate(.6deg)}
+.step .n{font-family:var(--hand); font-size:40px; line-height:.8; color:var(--ink)}
+.step b{font-weight:500; font-size:clamp(19px,1.6vw,24px); letter-spacing:-.03em; line-height:1.15}
+.step p{margin:0; color:#444; font-size:15px; line-height:1.5}
+
+/* 5. outcome: big numbers */
+.stats{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px),1fr)); gap:clamp(20px,2.4vw,36px); margin-bottom:clamp(28px,3vw,44px)}
+.stat{padding:clamp(18px,2vw,28px); transform:rotate(-.5deg)}
+.stat:nth-child(2){transform:rotate(.6deg)}
+.stat .v{display:block; font-weight:500; font-size:clamp(48px,6vw,96px); line-height:.95; letter-spacing:-.05em; color:var(--accent)}
+.stat .k{display:block; margin-top:10px; font-size:14px; color:#444}
+
+/* 6. gallery: prints laid out on the table, a few big, most small */
+.gallery{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:clamp(16px,2vw,32px); align-items:start}
+.gallery .print:nth-child(1){grid-column:span 4}
+.gallery .print:nth-child(2){grid-column:span 2; transform:rotate(1.2deg)}
+.gallery .print:nth-child(3){grid-column:span 2; transform:rotate(-1deg)}
+.gallery .print:nth-child(4){grid-column:span 2; transform:rotate(.6deg)}
+.gallery .print:nth-child(5){grid-column:span 2; transform:rotate(-.5deg)}
+.gallery .print:nth-child(6){grid-column:span 6}
+
+/* 7. testimonial: a taped note signed in pen */
+.quote{max-width:760px; margin:10px auto 0; padding:clamp(22px,2.4vw,34px); transform:rotate(-.8deg)}
+.quote blockquote{margin:0; font-size:clamp(18px,1.6vw,23px); line-height:1.45; letter-spacing:-.015em}
+.quote figcaption{margin-top:18px; text-align:right}
+.quote .sig{display:block; font-family:var(--hand); font-size:clamp(28px,2.4vw,34px); line-height:1; color:var(--ink); transform:rotate(-2deg)}
+.quote figcaption span{font-size:12px; color:var(--muted)}
+
+/* 8. next project */
+.next{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap}
+.next .big{font-weight:500; font-size:clamp(40px,7vw,120px); line-height:.92; letter-spacing:-.05em; text-transform:uppercase; transition:color .2s}
+.next a:hover .big{color:var(--accent)}
+.next .print{width:min(100%,340px); transform:rotate(1.4deg); transition:transform .4s cubic-bezier(.2,.7,.1,1)}
+.next a:hover + .print, .next .print:hover{transform:rotate(0) translateY(-4px)}
+
+@media (max-width:760px){
+  .brief{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery .print:nth-child(n){grid-column:span 1}
+  .gallery .print:nth-child(1), .gallery .print:nth-child(6){grid-column:span 2}
+}
+
+/* Streetfeet additions */
+.print img{width:100%; height:auto}
+.split{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,4vw,72px); align-items:start}
+.stack{display:flex; flex-direction:column; gap:clamp(18px,2vw,30px)}
+.wide{margin:clamp(24px,3vw,44px) 0 0}
+.pair{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(18px,2.4vw,36px); align-items:start; margin-top:clamp(24px,3vw,44px)}
+.pair .print:nth-child(1){transform:rotate(-.8deg)} .pair .print:nth-child(2){transform:rotate(.7deg)}
+.ideas{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:clamp(20px,2.4vw,36px); margin-top:clamp(22px,2.6vw,36px)}
+.ideas .step b{font-size:clamp(19px,1.6vw,24px)}
+.steps.four{grid-template-columns:repeat(2, minmax(0,1fr))}
+.learn{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+.learn li{padding:16px 18px; transform:rotate(-.4deg)}
+.learn li:nth-child(2){transform:rotate(.5deg)}
+.learn b{display:block; font-weight:500; font-size:clamp(18px,1.5vw,22px); letter-spacing:-.02em; margin-bottom:4px}
+.learn span{color:#444; font-size:15px}
+.cap{margin:10px 2px 0; font-size:13px; line-height:1.45; color:var(--muted); max-width:70ch}
+.hand-note{font-family:var(--hand); color:var(--ink); font-size:clamp(24px,2vw,30px); line-height:1.1; transform:rotate(-2deg); display:inline-block; margin-top:6px}
+.more{display:inline-block; margin-top:22px; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.01em; border-bottom:1px solid currentColor}
+.more:hover{color:var(--accent)}
+@media (max-width:860px){
+  .split, .pair{grid-template-columns:1fr}
+  .ideas{grid-template-columns:1fr}
+  .steps.four{grid-template-columns:1fr}
+}
+.split{align-items:center}
+.did-card{grid-template-columns:1fr 1fr; gap:0 16px}
+.did-card li{font-size:15px; padding:8px 0}
+.trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,30px); margin-top:clamp(24px,3vw,44px); align-items:center}
+.trio .print:nth-child(1){transform:rotate(-.8deg)} .trio .print:nth-child(2){transform:rotate(.5deg)} .trio .print:nth-child(3){transform:rotate(-.4deg)}
+.results{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:clamp(28px,4vw,64px); align-items:center}
+.results .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){ .trio{grid-template-columns:1fr} .results{grid-template-columns:1fr} }
+.duo{display:grid; grid-template-columns:2.5fr 1fr; gap:clamp(12px,2vw,30px); margin-top:clamp(24px,3vw,44px); align-items:start}
+
+/* palette motif: the red / orange / mustard tape stripe, under every section heading */
+.stripe-mark{display:block; width:54px; height:6px; background:linear-gradient(90deg, #ff6650 0 33.4%, #3b2f77 33.4% 66.7%, #fa5298 66.7%)}  /* this brand's three brightest palette colours */
+h2::after{content:""; display:block; width:54px; height:6px; margin-top:clamp(10px,1.2vw,16px); background:linear-gradient(90deg, #ff6650 0 33.4%, #3b2f77 33.4% 66.7%, #fa5298 66.7%)}  /* this brand's three brightest palette colours */
+
+/* ===== Gig print system: the same paper pieces as the home page (posters, passes, tickets, liner notes) ===== */
+:root{--ease:cubic-bezier(.2,.7,.1,1); --lift:translateY(-6px); --label-size:11px}
+/* one style for every small printed label */
+.kicker, .slip dt, .poster-head .kicker, .ticket .stub, .pass-head{font-size:var(--label-size); font-weight:700; letter-spacing:.14em; text-transform:uppercase}
+/* hero: a festival poster in the brand colour */
+.hero .poster{background:#141210; padding:clamp(10px,1.4vw,20px); border-image:var(--shadow-paper)}
+.hero .poster-head{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:clamp(4px,.6vw,8px) clamp(4px,.6vw,8px) clamp(12px,1.4vw,20px); color:#f1ead9}
+.hero .poster-head .kicker{margin:0; color:#f1ead9}
+.hero .poster-head .gig-art{flex:none; height:clamp(36px,4.4vw,64px); width:auto}
+.hero .poster-field{background-color:var(--brand); background-image:var(--grain); padding:clamp(16px,2.4vw,36px)}
+.hero .poster-field h1{color:#141210; font-weight:900; margin-bottom:clamp(14px,1.8vw,26px)}
+.hero .poster-field .print{margin:0; padding:0; background:none; border-image:none; transform:none}
+.hero .poster-foot{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-top:clamp(14px,1.8vw,26px); color:#141210}
+.hero .poster-foot .date{font-weight:900; font-size:clamp(24px,3.4vw,52px); line-height:1; letter-spacing:-.04em; text-transform:uppercase}
+.hero .poster-foot .role{padding:6px 12px; border:2px solid #141210; font-weight:800; font-size:clamp(11px,.9vw,13px); letter-spacing:.06em; text-transform:uppercase}
+.hero .lede{margin-top:clamp(22px,2.6vw,36px)}
+/* project card: a festival pass */
+.slip.pass-card{padding:0; border-radius:10px; overflow:hidden; background-color:#fbf8f1; border:1px solid rgba(20,18,16,.18); border-image:none; transform:rotate(1deg)}
+.slip.pass-card .tape{display:none}
+.pass-head{position:relative; display:flex; justify-content:space-between; align-items:flex-end; padding:clamp(34px,3vw,44px) 18px 10px; background:var(--brand); color:#141210}
+.pass-head::before{content:""; position:absolute; top:12px; left:50%; width:14px; height:14px; transform:translateX(-50%); border-radius:50%; background:#fdfdfb; border:1.5px solid rgba(20,18,16,.3)}
+.pass-head b{font-weight:900; font-size:clamp(24px,2.4vw,34px); line-height:.9; letter-spacing:-.03em}
+.slip.pass-card dl, .slip.pass-card .kicker, .slip.pass-card .did{margin-left:18px; margin-right:18px}
+.slip.pass-card dl{margin-top:16px}
+.slip.pass-card .did{margin-bottom:16px}
+/* results: ticket stubs */
+.stats .stat.ticket{display:flex; align-items:stretch; padding:0; position:relative; background-color:#efe3c8; transform:rotate(-1deg)}
+.stats .stat.ticket:nth-child(even){transform:rotate(1deg)}
+.stat.ticket .stub{flex:none; writing-mode:vertical-rl; transform:rotate(180deg); padding:10px 7px; border-left:2px dashed rgba(20,18,16,.4); text-align:center}
+.stat.ticket .tk{padding:clamp(14px,1.6vw,22px)}
+.stat.ticket .v{font-weight:900}
+/* client quote: liner notes (no tape, square sleeve paper) */
+.quote.liner .tape{display:none}
+.quote.liner{transform:rotate(-1deg)}
+/* one way objects move: only clickable pieces lift and straighten on hover */
+.next .print{transition:transform .45s var(--ease)}
+.next a:hover + .print, .next .print:hover{transform:rotate(0) var(--lift)}
+.shots{display:grid; grid-template-columns:1fr 1fr; gap:clamp(8px,1vw,14px); align-items:start}
+.shots .print{margin:0; padding:clamp(4px,.5vw,7px)}
+.shots .print:nth-child(1){transform:rotate(-1deg)} .shots .print:nth-child(2){transform:rotate(.8deg)} .shots .print:nth-child(3){transform:rotate(.6deg)} .shots .print:nth-child(4){transform:rotate(-.8deg)}
+</style>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="wrap" role="main">
+
+  <div class="top caps">
+    <a href="index.html#work">← Back to work</a>
+    <a href="index.html">Omar Ali Jehangir</a>
+  </div>
+
+  <!-- 1. HERO -->
+  <section class="hero" aria-label="Introduction" style="--brand:#fa5298">
+    <div class="poster">
+      <div class="poster-head"><p class="kicker">Case study · Brand refresh &amp; creative direction</p><svg class="gig-art" viewBox="0 0 150 60" aria-hidden="true"><line x1="4" y1="2" x2="4" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="2" x2="9" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="2" x2="14" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="19" y1="2" x2="19" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="24" y1="2" x2="24" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="29" y1="2" x2="29" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="34" y1="2" x2="34" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="39" y1="2" x2="39" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="44" y1="2" x2="44" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="49" y1="2" x2="49" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="54" y1="2" x2="54" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="59" y1="2" x2="59" y2="58" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="13" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div>
+      <div class="poster-field">
+        <h1>Streetfeet</h1>
+        <figure class="print"><img src="cs/streetfeet/hero.webp" width="1200" height="800" alt="Streetfeet logo over a sequence of campaign photos" decoding="async" fetchpriority="high"></figure>
+        <div class="poster-foot"><span class="date">2024 → now</span><span class="role">Brand designer &amp; art director</span></div>
+      </div>
+    </div>
+    <p class="lede">Repositioning a functional flip-flop brand as an aspirational summer lifestyle brand.</p>
+  </section>
+
+  <!-- 2. BRIEF + index card -->
+  <section aria-labelledby="brief-h">
+    <div class="brief">
+      <div>
+        <h2 id="brief-h">The brief</h2>
+        <div class="body">
+          <p>Streetfeet is a Pakistani footwear brand known for comfort-focused flip-flops and casual chappals built for hot local summers. The product was strong, but in a crowded DTC market full of low-cost competitors, the brand had no visual story that justified paying more.</p>
+          <p>Its existing visuals had no consistency or guidelines to follow. Without a distinct visual narrative, shoppers had no reason to choose it over a cheaper alternative.</p>
+          <p>The goal was to reposition Streetfeet from a functional purchase into an aspirational summer lifestyle brand, and to make that repositioning improve direct-to-consumer ad performance, not just perception.</p>
+          <p>Since July 2024, I’ve been Streetfeet’s retained brand designer and creative lead. I refreshed the identity, built the brand system, directed the shoots and designed the performance campaigns that sell the product online.</p>
+        </div>
+      </div>
+      <div class="paper slip pass-card" style="--brand:#fa5298">
+        <div class="pass-head" aria-hidden="true"><b>All access</b><span>No. 01</span></div>
+        <dl>
+          <div><dt>Client</dt><dd>Streetfeet</dd></div>
+          <div><dt>Role</dt><dd>Brand designer &amp; art director</dd></div>
+          <div><dt>Year</dt><dd>2024 → now</dd></div>
+          <div><dt>Tools</dt><dd>Illustrator, Photoshop, Lightroom, Nano Banana</dd></div>
+          <div><dt>Result</dt><dd class="red">3.6× ROAS · +43% conversion</dd></div>
+        </dl>
+        <p class="kicker" style="margin:18px 18px 8px; color:#2b2b2b">What I did</p>
+        <ul class="did did-card"><li>Brand strategy</li><li>Identity refresh</li><li>Brand guidelines</li><li>Art direction</li><li>Shoot direction</li><li>Performance creative</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. THE IDEA -->
+  <section aria-labelledby="idea-h">
+    <h2 id="idea-h">The idea</h2>
+    <div class="body"><p>Instead of competing on price, Streetfeet would sell a feeling: summer comfort. Three decisions shaped everything.</p></div>
+    <div class="ideas">
+      <article class="paper step">
+        <span class="n">1</span>
+        <figure class="print" style="margin:0"><img src="cs/streetfeet/idea-comfort-1600.webp" srcset="cs/streetfeet/idea-comfort-800.webp 800w, cs/streetfeet/idea-comfort-1600.webp 1600w" sizes="(max-width:860px) 92vw, 30vw" width="1600" height="1600" alt="Maroon flip-flops with callouts: ultra lightweight, pure rubber straps, cloud-soft cushioned sole" loading="lazy" decoding="async"></figure>
+        <b>Comfort as the message</b>
+        <p>One line carries the brand, “Like walking on clouds,” and every headline builds on it: soft, flexible, light.</p>
+      </article>
+      <article class="paper step">
+        <span class="n">2</span>
+        <figure class="print" style="margin:0"><img src="cs/streetfeet/idea-color-1600.webp" srcset="cs/streetfeet/idea-color-800.webp 800w, cs/streetfeet/idea-color-1600.webp 1600w" sizes="(max-width:860px) 92vw, 30vw" width="1600" height="1600" alt="Pink, orange and blue flip-flops on matching boxes" loading="lazy" decoding="async"></figure>
+        <b>Color as the signature</b>
+        <p>The range is colorful, so the brand leans in. A bold, saturated palette makes the product the hero and the ads recognizable in a feed before anyone reads the logo.</p>
+      </article>
+      <article class="paper step">
+        <span class="n">3</span>
+        <figure class="print" style="margin:0"><img src="cs/streetfeet/idea-lifestyle-1600.webp" srcset="cs/streetfeet/idea-lifestyle-800.webp 800w, cs/streetfeet/idea-lifestyle-1600.webp 1600w" sizes="(max-width:860px) 92vw, 30vw" width="1600" height="2000" alt="Legs in a knit dress and flip-flops on warm terracotta tiles" loading="lazy" decoding="async"></figure>
+        <b>Lifestyle over product-on-white</b>
+        <p>People, texture and summer settings show where the product lives, not just what it looks like.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5. BRAND SYSTEM -->
+  <section aria-labelledby="system-h">
+    <div class="split">
+      <div>
+        <h2 id="system-h">The brand system</h2>
+        <div class="body"><p>The refresh kept the recognizable logo, but I redrew the icon to make it more balanced and more legible, even as a small icon. Around it, I built a system flexible enough for seasonal campaigns but consistent enough to stay recognizable: a core palette with seasonal extensions, one type family, and a set of rules for visuals and photography.</p></div>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(.6deg)"><img src="cs/streetfeet/logo-1600.webp" srcset="cs/streetfeet/logo-800.webp 800w, cs/streetfeet/logo-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="738" alt="The original and the redrawn Streetfeet logo side by side on pink" loading="lazy" decoding="async"><figcaption>Original (left) and redrawn icon (right).</figcaption></figure>
+    </div>
+    <div class="trio sys">
+      <figure class="print" style="margin:0"><img src="cs/streetfeet/color-cards.webp" width="800" height="600" alt="Streetfeet logo and tagline cards cycling through the brand colors" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/streetfeet/palette-1600.webp" srcset="cs/streetfeet/palette-800.webp 800w, cs/streetfeet/palette-1600.webp 1600w" sizes="(max-width:860px) 92vw, 30vw" width="1600" height="1408" alt="Core palette, brand gradient and the pastel and Valentine’s seasonal palettes" loading="lazy" decoding="async"><figcaption>Core palette with seasonal extensions.</figcaption></figure>
+      <figure class="print" style="margin:0"><img src="cs/streetfeet/type-1600.webp" srcset="cs/streetfeet/type-800.webp 800w, cs/streetfeet/type-1600.webp 1600w" sizes="(max-width:860px) 92vw, 30vw" width="1600" height="1035" alt="The Now type family in light, regular, medium, bold and black" loading="lazy" decoding="async"><figcaption>One type family: Now.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 6. ART DIRECTION & SHOOTS -->
+  <section aria-labelledby="shoots-h">
+    <h2 id="shoots-h">Art direction &amp; shoots</h2>
+    <div class="body"><p>I directed four shoots, each solving a different problem: building a first image library on a tiny budget, launching a collection with a full production, then scaling the imagery with AI without losing the look. Every brief followed the same rules: product as hero, bold color, and visible comfort.</p></div>
+    <div class="steps four" style="margin-top:clamp(22px,2.6vw,36px)">
+      <article class="paper step">
+        <span class="n">1</span>
+        <div class="shots"><figure class="print"><img src="cs/streetfeet/shoot1-1-700.webp" srcset="cs/streetfeet/shoot1-1-380.webp 380w, cs/streetfeet/shoot1-1-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of on-location photos: flip-flops on a picnic blanket, on rocks and on grass, photo 1 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot1-2-700.webp" srcset="cs/streetfeet/shoot1-2-380.webp 380w, cs/streetfeet/shoot1-2-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="Grid of on-location photos: flip-flops on a picnic blanket, on rocks and on grass, photo 2 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot1-3-700.webp" srcset="cs/streetfeet/shoot1-3-380.webp 380w, cs/streetfeet/shoot1-3-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="960" alt="Grid of on-location photos: flip-flops on a picnic blanket, on rocks and on grass, photo 3 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot1-4-700.webp" srcset="cs/streetfeet/shoot1-4-380.webp 380w, cs/streetfeet/shoot1-4-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of on-location photos: flip-flops on a picnic blanket, on rocks and on grass, photo 4 of 4" loading="lazy" decoding="async"></figure></div>
+        <b>On location, low budget</b>
+        <p>A scrappy first shoot at a private home and a nearby park. With no studio and a minimal budget, I handled styling, shot planning and direction to build the brand’s first lifestyle library.</p>
+      </article>
+      <article class="paper step">
+        <span class="n">2</span>
+        <div class="shots"><figure class="print"><img src="cs/streetfeet/shoot2-1-700.webp" srcset="cs/streetfeet/shoot2-1-380.webp 380w, cs/streetfeet/shoot2-1-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of studio photos from the Pastel Collection launch, photo 1 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot2-2-700.webp" srcset="cs/streetfeet/shoot2-2-380.webp 380w, cs/streetfeet/shoot2-2-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of studio photos from the Pastel Collection launch, photo 2 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot2-3-700.webp" srcset="cs/streetfeet/shoot2-3-380.webp 380w, cs/streetfeet/shoot2-3-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of studio photos from the Pastel Collection launch, photo 3 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot2-4-700.webp" srcset="cs/streetfeet/shoot2-4-380.webp 380w, cs/streetfeet/shoot2-4-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="700" alt="Grid of studio photos from the Pastel Collection launch, photo 4 of 4" loading="lazy" decoding="async"></figure></div>
+        <b>Studio production &amp; Pastel Collection launch</b>
+        <p>A full production to launch the Pastel Collection and shoot the core catalog. I planned the moodboards, shot list and desired outcomes, then directed the hired team of models, photographers and videographers on set.</p>
+      </article>
+      <article class="paper step">
+        <span class="n">3</span>
+        <div class="shots"><figure class="print"><img src="cs/streetfeet/shoot3-1-700.webp" srcset="cs/streetfeet/shoot3-1-380.webp 380w, cs/streetfeet/shoot3-1-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="699" alt="AI-assisted studio images matching the studio set, lighting and style, photo 1 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot3-2-700.webp" srcset="cs/streetfeet/shoot3-2-380.webp 380w, cs/streetfeet/shoot3-2-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted studio images matching the studio set, lighting and style, photo 2 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot3-3-700.webp" srcset="cs/streetfeet/shoot3-3-380.webp 380w, cs/streetfeet/shoot3-3-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted studio images matching the studio set, lighting and style, photo 3 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot3-4-700.webp" srcset="cs/streetfeet/shoot3-4-380.webp 380w, cs/streetfeet/shoot3-4-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="699" alt="AI-assisted studio images matching the studio set, lighting and style, photo 4 of 4" loading="lazy" decoding="async"></figure></div>
+        <b>AI-assisted studio extension</b>
+        <p>Using the studio shoot as reference, I generated more images in the same set, lighting and style. I photographed each flip-flop from several angles and used those as product references in Nano Banana, so every image replicates the actual design. Every output was checked against the real product, and anything that drifted was regenerated or corrected in Photoshop.</p>
+      </article>
+      <article class="paper step">
+        <span class="n">4</span>
+        <div class="shots"><figure class="print"><img src="cs/streetfeet/shoot4-1-700.webp" srcset="cs/streetfeet/shoot4-1-380.webp 380w, cs/streetfeet/shoot4-1-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted beach and pool scenes for the summer campaign, photo 1 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot4-2-700.webp" srcset="cs/streetfeet/shoot4-2-380.webp 380w, cs/streetfeet/shoot4-2-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted beach and pool scenes for the summer campaign, photo 2 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot4-3-700.webp" srcset="cs/streetfeet/shoot4-3-380.webp 380w, cs/streetfeet/shoot4-3-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted beach and pool scenes for the summer campaign, photo 3 of 4" loading="lazy" decoding="async"></figure><figure class="print"><img src="cs/streetfeet/shoot4-4-700.webp" srcset="cs/streetfeet/shoot4-4-380.webp 380w, cs/streetfeet/shoot4-4-700.webp 700w" sizes="(max-width:860px) 44vw, 21vw" width="700" height="875" alt="AI-assisted beach and pool scenes for the summer campaign, photo 4 of 4" loading="lazy" decoding="async"></figure></div>
+        <b>AI-assisted summer campaign</b>
+        <p>A product-focused beach and pool series with sun-kissed outdoor scenes that would otherwise have needed a location shoot. Built for the peak-summer campaign.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 7. AD SYSTEM -->
+  <section aria-labelledby="ads-h">
+    <div class="split">
+      <div>
+        <h2 id="ads-h">The ad system</h2>
+        <div class="body"><p>Performance marketing runs on volume: new ads every week to test hooks, products and offers. To keep pace without losing consistency, I built a set of reusable ad templates and a bank of campaign ideas, all following the same rules for logo, color and layout. The result was 20+ Meta ad variations, plus web banners and social posts, all recognizably Streetfeet.</p></div>
+      </div>
+      <div class="stack">
+        <p class="kicker" style="margin:0">Testing taught us two things</p>
+        <ul class="learn">
+          <li class="paper"><b>Color works best in small doses.</b><span>Color stayed the signature, but ads with a limited palette performed better than busier multicolor designs.</span></li>
+          <li class="paper"><b>Features sell.</b><span>The best-performing format showcased the features: the soft sole, pure rubber straps and ultra lightweight build.</span></li>
+        </ul>
+        <p class="body" style="margin:0">Both learnings fed back into the templates, so each new round of ads started from what was already working.</p>
+      </div>
+    </div>
+    <div class="trio">
+      <figure class="print"><img src="cs/streetfeet/ad1-800.webp" srcset="cs/streetfeet/ad1-400.webp 400w, cs/streetfeet/ad1-800.webp 800w" sizes="(max-width:860px) 92vw, 30vw" width="800" height="800" alt="Light as a feather ad: a leg in jeans with yellow flip-flops on a rattan stool" loading="lazy" decoding="async"></figure>
+      <figure class="print"><img src="cs/streetfeet/ad2-800.webp" srcset="cs/streetfeet/ad2-400.webp 400w, cs/streetfeet/ad2-800.webp 800w" sizes="(max-width:860px) 92vw, 30vw" width="800" height="800" alt="Soft. Flexible. Cloud-like. ad: hands bending a floral flip-flop" loading="lazy" decoding="async"></figure>
+      <figure class="print"><img src="cs/streetfeet/ad3-800.webp" srcset="cs/streetfeet/ad3-400.webp 400w, cs/streetfeet/ad3-800.webp 800w" sizes="(max-width:860px) 92vw, 30vw" width="800" height="800" alt="Features ad: maroon flip-flops with callouts for the strap and cushioned sole" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- 8. SEASONAL -->
+  <section aria-labelledby="seasonal-h">
+    <h2 id="seasonal-h">Seasonal campaigns</h2>
+    <div class="body"><p>The same system stretched through the seasons and campaigns, each with its own color story inside the core brand.</p></div>
+    <div class="pair">
+      <figure class="print" style="margin:0"><img src="cs/streetfeet/applications.webp" width="1000" height="1000" alt="Streetfeet social posts, stories and a phone screen across seasonal campaigns" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/streetfeet/valentines-1600.webp" srcset="cs/streetfeet/valentines-800.webp 800w, cs/streetfeet/valentines-1600.webp 1600w" sizes="(max-width:760px) 92vw, 46vw" width="1600" height="1202" alt="Valentine’s campaign: a red Streetfeet box with a rose, Choose comfort" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="duo">
+      <figure class="print" style="margin:0; transform:rotate(-.5deg)"><img src="cs/streetfeet/ss26-1600.webp" srcset="cs/streetfeet/ss26-800.webp 800w, cs/streetfeet/ss26-1600.webp 1600w" sizes="(max-width:860px) 66vw, 64vw" width="1600" height="800" alt="Spring/Summer 2026 banner: Step into summer with colorful comfort" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0; transform:rotate(.8deg)"><img src="cs/streetfeet/summer-heat-960.webp" srcset="cs/streetfeet/summer-heat-480.webp 480w, cs/streetfeet/summer-heat-960.webp 960w" sizes="(max-width:860px) 26vw, 26vw" width="960" height="1200" alt="Escape the summer heat post with yellow flip-flops on a poolside towel" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- 9. AI NEEDED A DIRECTOR -->
+  <section aria-labelledby="ai-h">
+    <div class="split">
+      <div>
+        <h2 id="ai-h">Where AI needed a director</h2>
+        <div class="body">
+          <p>Two Streetfeet campaign shoots were AI-assisted (Higgsfield, Nano Banana). Most of what the tools produced didn’t make it. Some frames broke technically, with distorted feet, unrealistic shadows and warped text. Others were technically fine but wrong for the brand: too dark, too stylised, or so polished they stopped looking real.</p>
+          <p>I treated generation like a real shoot, with a brief first and every frame judged on two questions: is the product accurate, and does it feel like “Like walking on clouds”? Only images that passed both went live.</p>
+        </div>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(-.9deg)"><img src="cs/streetfeet/ai-outtakes-1600.webp" srcset="cs/streetfeet/ai-outtakes-800.webp 800w, cs/streetfeet/ai-outtakes-1600.webp 1600w" sizes="(max-width:760px) 92vw, 46vw" width="1600" height="1286" alt="Rejected AI outtakes" loading="lazy" decoding="async"><figcaption>Rejected outtakes. Top: distorted foot, angle too stylised; too dark and moody for the brand; an unnatural pose, too perfect to be real. Bottom: an off-brand concept with AI text artifacts; wrong proportions and a fake shadow.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 10. OUTCOME + client quote -->
+  <section aria-labelledby="outcome-h">
+    <div class="results">
+      <div>
+    <h2 id="outcome-h">Results</h2>
+    <div class="stats">
+      <div class="paper stat ticket"><span class="tk"><span class="v">3.6×</span><span class="k">ROAS on Meta campaigns</span></span></div>
+      <div class="paper stat ticket"><span class="tk"><span class="v">+43%</span><span class="k">DTC conversion rate, year on year</span></span></div>
+      <div class="paper stat ticket"><span class="tk"><span class="v">20+</span><span class="k">Ad variations created</span></span></div>
+      <div class="paper stat ticket"><span class="tk"><span class="v">4</span><span class="k">Campaign shoots directed</span></span></div>
+    </div>
+    <div class="body">
+      <p>Across peak summer 2025, Meta campaigns built on the new system returned 3.6× ROAS, and the DTC site’s conversion rate rose 43% compared to the previous year.</p>
+      <p>Beyond the numbers, Streetfeet now has an identity customers recognize in their feed, and a production system that ships new creative every week without losing consistency.</p>
+    </div>
+    <a class="more" href="https://www.behance.net/gallery/256253243/Streetfeet-Brand-Refresh-Creative-Direction" target="_blank" rel="noopener">Full case study on Behance ↗</a>
+      </div>
+      <figure class="paper quote liner" style="margin:0">
+      <span class="tape" aria-hidden="true"></span>
+      <blockquote>“Omar has been Streetfeet’s brand lead for over 2 years, and he’s one of the few designers I’ve worked with who thinks like a marketer as well as an art director… He takes a loose brief and brings back something clear, on brand and ready to launch. Any brand that wants a designer who owns the results would be lucky to have him.”</blockquote>
+      <figcaption><a class="sig" href="https://www.linkedin.com/in/omarajehangir/details/recommendations/" target="_blank" rel="noopener">— Saman Malik</a><span>Managing Director, Streetfeet</span></figcaption>
+    </figure>
+    </div>
+  </section>
+
+  <!-- 12. NEXT PROJECT -->
+  <section aria-label="Next project">
+    <p class="kicker">Next project</p>
+    <div class="next">
+      <a href="https://www.behance.net/gallery/256561689/Persona-Branding-the-World-of-Timefall-Valley" target="_blank" rel="noopener"><span class="big">Project Persona ↗</span></a>
+      <figure class="print" style="margin:0"><img src="covers/persona-440.webp" width="707" height="440" alt="Project Persona in-world brand decals and characters" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+</div>
+<script>
+/* Always open a page at the top (or exactly at its #section): stop the browser restoring an old scroll position,
+   and jump instantly rather than smooth-scrolling from wherever the previous page was. */
+(() => {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const land = () => {
+    const html = document.documentElement, prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    const t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (t) t.scrollIntoView(); else window.scrollTo(0, 0);
+    requestAnimationFrame(() => { html.style.scrollBehavior = prev; });
+  };
+  land();
+  addEventListener('DOMContentLoaded', land);
+  addEventListener('load', land);
+  addEventListener('pageshow', e => { if (e.persisted) land(); });
+})();
+</script>
+</body>
+</html>

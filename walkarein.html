@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkarein Case Study</title>
+<meta name="description" content="Walkarein brand identity and launch art direction by Omar Ali Jehangir: a three-W chevron mark, palette, type, graphic system, shoot and launch templates.">
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Walkarein case study, built on the case study template (case-study.html) */
+@font-face{font-family:"Inter"; src:url("fonts/inter-var.woff2") format("woff2"); font-weight:100 900; font-display:swap}
+@font-face{font-family:"Nanum Pen Script"; src:url("fonts/nanum-pen.woff2") format("woff2"); font-weight:400; font-display:swap}
+:root{
+  --fg:#141210; --muted:#6e6355; --accent:#c22f26; --ink:#1f1b16; --paper:#f1e7d2;
+  --sans:"Inter", "Helvetica Neue", Arial, sans-serif; --hand:"Nanum Pen Script", "Bradley Hand", cursive;
+  --gutter:clamp(18px, 2.4vw, 40px); --frame:clamp(8px, 1.1vw, 16px);
+  --grain:url("assets/paper-grain.webp");
+  --shadow-paper:url("assets/shadow-paper.webp") 92 / 92px / 36px stretch;   /* pre-made shadow, not a live blur */
+  --shadow-print:url("assets/shadow-print.webp") 14 / 14px / 6px stretch;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:#ff7a48; color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased}
+a{color:inherit; text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+img{display:block; max-width:100%}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important; scroll-behavior:auto!important} }
+
+/* the desk: a fixed layer behind the cards (cheaper than background-attachment:fixed, and works on iOS) */
+.backdrop{position:fixed; inset:0; z-index:-1; pointer-events:none; background-color:#ff7a48; background-image:var(--grain)}  /* page colour: this project's brand colour */
+/* section cards on the desk */
+.wrap{display:flex; flex-direction:column; gap:var(--frame); padding:var(--frame)}
+.wrap > *{background:#fdfdfb url("assets/section-grain.webp"); padding:clamp(28px,3.6vw,56px) var(--gutter); margin:0; overflow:clip}
+.top{position:sticky; top:var(--frame); z-index:20; display:flex; justify-content:space-between; align-items:baseline; padding-block:14px!important;
+  border-image:url("assets/shadow-bar.webp") 0 0 40 0 / 0 0 40px 0 / 0 0 40px 0 stretch}
+.caps{font-size:clamp(13px, calc(11.5px + .2vw), 14px); font-weight:500; text-transform:uppercase; letter-spacing:.01em}
+.top a:hover{color:var(--accent)}
+
+/* type */
+.kicker{margin:0 0 14px; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.02em; color:var(--muted)}
+h1{margin:0; font-weight:500; font-size:clamp(44px,9vw,150px); line-height:.92; letter-spacing:-.05em; text-transform:uppercase}
+h2{margin:0 0 clamp(18px,2vw,28px); font-weight:500; font-size:clamp(34px,4.6vw,72px); line-height:1; letter-spacing:-.045em; text-transform:uppercase}
+.lede{margin:clamp(18px,2vw,28px) 0 0; max-width:30ch; font-size:clamp(22px,2.4vw,36px); line-height:1.15; letter-spacing:-.03em}
+.body{max-width:62ch; font-size:clamp(16px,1.2vw,18px); line-height:1.6; color:#2b2b2b}
+.body p{margin:0 0 1em}
+.tbd{color:#8c8577}   /* placeholder copy: replace, then drop the class */
+
+/* paper objects */
+.paper{position:relative; background-color:var(--paper); background-image:var(--grain); border-image:var(--shadow-paper)}
+.tape{position:absolute; top:-14px; left:50%; width:96px; height:28px; transform:translateX(-50%) rotate(-3deg); background:url("assets/tape.webp") center / 100% 100% no-repeat; z-index:2}
+/* a mounted print: white border + small shadow. .slot is the grey stand-in until a real image goes in */
+.print{position:relative; background:#fff; padding:clamp(6px,.8vw,12px); border-image:var(--shadow-print)}
+.print figcaption{padding:8px 2px 0; font-size:12px; color:var(--muted)}
+.slot{display:grid; place-items:center; background:#e9e4d8; color:#8c8577; font-size:12px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; text-align:center; padding:12px}
+.r16x9{aspect-ratio:16/9} .r4x3{aspect-ratio:4/3} .r1x1{aspect-ratio:1} .r4x5{aspect-ratio:4/5}
+
+/* 1. hero */
+.hero .print{margin-top:clamp(28px,3.4vw,52px); transform:rotate(-.4deg)}
+
+/* 2. brief + facts slip */
+.brief{display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr); gap:clamp(28px,4vw,72px); align-items:start}
+.slip{padding:18px 18px 20px; transform:rotate(.8deg)}
+.slip dl{margin:0; border:1px solid #2b2b2b}
+.slip dl > div{display:flex; align-items:baseline; gap:10px; padding:0 12px; min-height:46px; border-top:1px solid #2b2b2b}
+.slip dl > div:first-child{border-top:0}
+.slip dt{flex:none; width:62px; font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; padding-top:8px}
+.slip dd{margin:0; font-family:var(--hand); font-size:clamp(22px,1.9vw,27px); line-height:1.15; color:var(--ink); padding:8px 0 4px; transform:rotate(-.6deg)}
+.slip dd.red{color:var(--accent)}
+
+/* 3. what I did: a ticked checklist in pen */
+.did{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px clamp(16px,2vw,32px)}
+.did li{display:flex; gap:12px; align-items:baseline; padding:12px 0; border-bottom:1px solid #d9d3c6; font-size:clamp(17px,1.4vw,21px); letter-spacing:-.02em}
+.did li::before{content:"✓"; font-family:var(--hand); font-size:1.4em; line-height:0; color:var(--accent)}
+
+/* 4. process: numbered paper notes, each with an image */
+.steps{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:clamp(22px,2.6vw,40px)}
+.step{padding:clamp(14px,1.4vw,20px) clamp(14px,1.4vw,20px) 22px; display:flex; flex-direction:column; gap:14px}
+.step:nth-child(odd){transform:rotate(-.7deg)} .step:nth-child(even){transform:rotate(.6deg)}
+.step .n{font-family:var(--hand); font-size:40px; line-height:.8; color:var(--ink)}
+.step b{font-weight:500; font-size:clamp(19px,1.6vw,24px); letter-spacing:-.03em; line-height:1.15}
+.step p{margin:0; color:#444; font-size:15px; line-height:1.5}
+
+/* 5. outcome: big numbers */
+.stats{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,220px),1fr)); gap:clamp(20px,2.4vw,36px); margin-bottom:clamp(28px,3vw,44px)}
+.stat{padding:clamp(18px,2vw,28px); transform:rotate(-.5deg)}
+.stat:nth-child(2){transform:rotate(.6deg)}
+.stat .v{display:block; font-weight:500; font-size:clamp(48px,6vw,96px); line-height:.95; letter-spacing:-.05em; color:var(--accent)}
+.stat .k{display:block; margin-top:10px; font-size:14px; color:#444}
+
+/* 6. gallery: prints laid out on the table, a few big, most small */
+.gallery{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:clamp(16px,2vw,32px); align-items:start}
+.gallery .print:nth-child(1){grid-column:span 4}
+.gallery .print:nth-child(2){grid-column:span 2; transform:rotate(1.2deg)}
+.gallery .print:nth-child(3){grid-column:span 2; transform:rotate(-1deg)}
+.gallery .print:nth-child(4){grid-column:span 2; transform:rotate(.6deg)}
+.gallery .print:nth-child(5){grid-column:span 2; transform:rotate(-.5deg)}
+.gallery .print:nth-child(6){grid-column:span 6}
+
+/* 7. testimonial: a taped note signed in pen */
+.quote{max-width:760px; margin:10px auto 0; padding:clamp(22px,2.4vw,34px); transform:rotate(-.8deg)}
+.quote blockquote{margin:0; font-size:clamp(18px,1.6vw,23px); line-height:1.45; letter-spacing:-.015em}
+.quote figcaption{margin-top:18px; text-align:right}
+.quote .sig{display:block; font-family:var(--hand); font-size:clamp(28px,2.4vw,34px); line-height:1; color:var(--ink); transform:rotate(-2deg)}
+.quote figcaption span{font-size:12px; color:var(--muted)}
+
+/* 8. next project */
+.next{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap}
+.next .big{font-weight:500; font-size:clamp(40px,7vw,120px); line-height:.92; letter-spacing:-.05em; text-transform:uppercase; transition:color .2s}
+.next a:hover .big{color:var(--accent)}
+.next .print{width:min(100%,340px); transform:rotate(1.4deg); transition:transform .4s cubic-bezier(.2,.7,.1,1)}
+.next a:hover + .print, .next .print:hover{transform:rotate(0) translateY(-4px)}
+
+@media (max-width:760px){
+  .brief{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery .print:nth-child(n){grid-column:span 1}
+  .gallery .print:nth-child(1), .gallery .print:nth-child(6){grid-column:span 2}
+}
+
+/* Streetfeet additions */
+.print img{width:100%; height:auto}
+.split{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,4vw,72px); align-items:start}
+.stack{display:flex; flex-direction:column; gap:clamp(18px,2vw,30px)}
+.wide{margin:clamp(24px,3vw,44px) 0 0}
+.pair{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(18px,2.4vw,36px); align-items:start; margin-top:clamp(24px,3vw,44px)}
+.pair .print:nth-child(1){transform:rotate(-.8deg)} .pair .print:nth-child(2){transform:rotate(.7deg)}
+.ideas{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:clamp(20px,2.4vw,36px); margin-top:clamp(22px,2.6vw,36px)}
+.ideas .step b{font-size:clamp(19px,1.6vw,24px)}
+.steps.four{grid-template-columns:repeat(2, minmax(0,1fr))}
+.learn{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+.learn li{padding:16px 18px; transform:rotate(-.4deg)}
+.learn li:nth-child(2){transform:rotate(.5deg)}
+.learn b{display:block; font-weight:500; font-size:clamp(18px,1.5vw,22px); letter-spacing:-.02em; margin-bottom:4px}
+.learn span{color:#444; font-size:15px}
+.cap{margin:10px 2px 0; font-size:13px; line-height:1.45; color:var(--muted); max-width:70ch}
+.hand-note{font-family:var(--hand); color:var(--ink); font-size:clamp(24px,2vw,30px); line-height:1.1; transform:rotate(-2deg); display:inline-block; margin-top:6px}
+.more{display:inline-block; margin-top:22px; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.01em; border-bottom:1px solid currentColor}
+.more:hover{color:var(--accent)}
+@media (max-width:860px){
+  .split, .pair{grid-template-columns:1fr}
+  .ideas{grid-template-columns:1fr}
+  .steps.four{grid-template-columns:1fr}
+}
+
+/* Walkarein additions */
+.routes{list-style:none; margin:0; padding:0; counter-reset:r; display:grid; gap:10px}
+.routes li{display:grid; grid-template-columns:34px 1fr; gap:6px; padding:12px 0; border-bottom:1px solid #d9d3c6; font-size:15px; color:#333; line-height:1.45}
+.routes li::before{counter-increment:r; content:counter(r); font-family:var(--hand); font-size:30px; line-height:.8; color:var(--ink)}
+.routes li b{font-weight:600; color:var(--fg)}
+.routes li.win b{color:var(--accent)}
+.reads{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,1.6vw,24px)}
+.reads li{padding:16px 18px} .reads li:nth-child(odd){transform:rotate(-.6deg)} .reads li:nth-child(2){transform:rotate(.5deg)}
+.reads b{display:block; font-weight:500; font-size:clamp(18px,1.5vw,22px); letter-spacing:-.02em; margin-bottom:4px}
+.reads span{color:#444; font-size:15px}
+.trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,30px); margin-top:clamp(24px,3vw,44px)}
+.trio .print:nth-child(1){transform:rotate(-1deg)} .trio .print:nth-child(2){transform:rotate(.6deg)} .trio .print:nth-child(3){transform:rotate(-.4deg)}
+.values{margin:0; padding-left:1.1em}
+.values li{margin-bottom:.35em}
+@media (max-width:860px){ .reads{grid-template-columns:1fr} .trio{grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px} }
+.apps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,30px); margin-top:clamp(22px,2.6vw,36px)}
+.apps .print:nth-child(3n+1){transform:rotate(-.7deg)} .apps .print:nth-child(3n+2){transform:rotate(.5deg)} .apps .print:nth-child(3n){transform:rotate(-.3deg)}
+@media (max-width:860px){ .apps{grid-template-columns:1fr 1fr} }
+.split{align-items:center}
+.did{grid-template-columns:repeat(6,minmax(0,1fr))}
+@media (max-width:1100px){ .did{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:560px){ .did{grid-template-columns:1fr 1fr} }
+.shots{display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.6vw,22px)}
+.shots .print{margin:0}
+.shots .print:nth-child(1){transform:rotate(-1deg)} .shots .print:nth-child(2){transform:rotate(.8deg)} .shots .print:nth-child(3){transform:rotate(-.4deg)} .shots .print:nth-child(4){transform:rotate(.6deg)} .shots .print:nth-child(5){transform:rotate(-.8deg)}
+
+/* palette motif: the red / orange / mustard tape stripe, under every section heading */
+.stripe-mark{display:block; width:54px; height:6px; background:linear-gradient(90deg, #ff7a48 0 33.4%, #ebc6a6 33.4% 66.7%, #178190 66.7%)}  /* this brand's three brightest palette colours */
+h2::after{content:""; display:block; width:54px; height:6px; margin-top:clamp(10px,1.2vw,16px); background:linear-gradient(90deg, #ff7a48 0 33.4%, #ebc6a6 33.4% 66.7%, #178190 66.7%)}  /* this brand's three brightest palette colours */
+
+/* ===== Gig print system: the same paper pieces as the home page (posters, passes, tickets, liner notes) ===== */
+:root{--ease:cubic-bezier(.2,.7,.1,1); --lift:translateY(-6px); --label-size:11px}
+/* one style for every small printed label */
+.kicker, .slip dt, .poster-head .kicker, .ticket .stub, .pass-head{font-size:var(--label-size); font-weight:700; letter-spacing:.14em; text-transform:uppercase}
+/* hero: a festival poster in the brand colour */
+.hero .poster{background:#141210; padding:clamp(10px,1.4vw,20px); border-image:var(--shadow-paper)}
+.hero .poster-head{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:clamp(4px,.6vw,8px) clamp(4px,.6vw,8px) clamp(12px,1.4vw,20px); color:#f1ead9}
+.hero .poster-head .kicker{margin:0; color:#f1ead9}
+.hero .poster-head .gig-art{flex:none; height:clamp(36px,4.4vw,64px); width:auto}
+.hero .poster-field{background-color:var(--brand); background-image:var(--grain); padding:clamp(16px,2.4vw,36px)}
+.hero .poster-field h1{color:#141210; font-weight:900; margin-bottom:clamp(14px,1.8vw,26px)}
+.hero .poster-field .print{margin:0; padding:0; background:none; border-image:none; transform:none}
+.hero .poster-foot{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-top:clamp(14px,1.8vw,26px); color:#141210}
+.hero .poster-foot .date{font-weight:900; font-size:clamp(24px,3.4vw,52px); line-height:1; letter-spacing:-.04em; text-transform:uppercase}
+.hero .poster-foot .role{padding:6px 12px; border:2px solid #141210; font-weight:800; font-size:clamp(11px,.9vw,13px); letter-spacing:.06em; text-transform:uppercase}
+.hero .lede{margin-top:clamp(22px,2.6vw,36px)}
+/* project card: a festival pass */
+.slip.pass-card{padding:0; border-radius:10px; overflow:hidden; background-color:#fbf8f1; border:1px solid rgba(20,18,16,.18); border-image:none; transform:rotate(1deg)}
+.slip.pass-card .tape{display:none}
+.pass-head{position:relative; display:flex; justify-content:space-between; align-items:flex-end; padding:clamp(34px,3vw,44px) 18px 10px; background:var(--brand); color:#141210}
+.pass-head::before{content:""; position:absolute; top:12px; left:50%; width:14px; height:14px; transform:translateX(-50%); border-radius:50%; background:#fdfdfb; border:1.5px solid rgba(20,18,16,.3)}
+.pass-head b{font-weight:900; font-size:clamp(24px,2.4vw,34px); line-height:.9; letter-spacing:-.03em}
+.slip.pass-card dl, .slip.pass-card .kicker, .slip.pass-card .did{margin-left:18px; margin-right:18px}
+.slip.pass-card dl{margin-top:16px}
+.slip.pass-card .did{margin-bottom:16px}
+/* results: ticket stubs */
+.stats .stat.ticket{display:flex; align-items:stretch; padding:0; position:relative; background-color:#efe3c8; transform:rotate(-1deg)}
+.stats .stat.ticket:nth-child(even){transform:rotate(1deg)}
+.stat.ticket .stub{flex:none; writing-mode:vertical-rl; transform:rotate(180deg); padding:10px 7px; border-left:2px dashed rgba(20,18,16,.4); text-align:center}
+.stat.ticket::before, .stat.ticket::after{content:""; position:absolute; left:27px; width:12px; height:12px; border-radius:50%; background:#fdfdfb}
+.stat.ticket::before{top:-6px} .stat.ticket::after{bottom:-6px}
+.stat.ticket .tk{padding:clamp(14px,1.6vw,22px)}
+.stat.ticket .v{font-weight:900}
+/* client quote: liner notes (no tape, square sleeve paper) */
+.quote.liner .tape{display:none}
+.quote.liner{transform:rotate(-1deg)}
+/* one way objects move: only clickable pieces lift and straighten on hover */
+.next .print{transition:transform .45s var(--ease)}
+.next a:hover + .print, .next .print:hover{transform:rotate(0) var(--lift)}
+.did-card{grid-template-columns:1fr 1fr; gap:0 16px}
+.did-card li{font-size:15px; padding:8px 0}
+.vals{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(14px,1.8vw,26px)}
+.vals li{display:flex; flex-direction:column; gap:12px; padding:clamp(16px,1.6vw,22px)}
+.vals li:nth-child(odd){transform:rotate(-.8deg)} .vals li:nth-child(even){transform:rotate(.7deg)}
+.vals b{font-family:var(--hand); font-weight:400; font-size:40px; line-height:.8; color:var(--ink)}
+.vals span{font-size:clamp(16px,1.3vw,19px); line-height:1.3; letter-spacing:-.015em}
+@media (max-width:860px){ .vals{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="wrap" role="main">
+
+  <div class="top caps">
+    <a href="index.html#work">← Back to work</a>
+    <a href="index.html">Omar Ali Jehangir</a>
+  </div>
+
+  <!-- 1. HERO -->
+  <section class="hero" aria-label="Introduction" style="--brand:#ff7a48">
+    <div class="poster">
+      <div class="poster-head"><p class="kicker">Case study · Brand identity &amp; launch art direction</p><svg class="gig-art" viewBox="0 0 150 60" aria-hidden="true"><line x1="4" y1="2" x2="4" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="2" x2="9" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="2" x2="14" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="19" y1="2" x2="19" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="24" y1="2" x2="24" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="29" y1="2" x2="29" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="34" y1="2" x2="34" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="39" y1="2" x2="39" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="44" y1="2" x2="44" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="49" y1="2" x2="49" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="54" y1="2" x2="54" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="59" y1="2" x2="59" y2="58" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="13" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div>
+      <div class="poster-field">
+        <h1>Walkarein</h1>
+        <figure class="print"><img src="cs/walkarein/hero-2000.webp" srcset="cs/walkarein/hero-1000.webp 1000w, cs/walkarein/hero-2000.webp 2000w" sizes="96vw" width="2000" height="1000" alt="Walkarein sandals laid across the three-W chevron mark" decoding="async" fetchpriority="high"></figure>
+        <div class="poster-foot"><span class="date">2025</span><span class="role">Brand designer &amp; art director</span></div>
+      </div>
+    </div>
+    <p class="lede">A footwear identity built on one idea: keep moving.</p>
+  </section>
+
+  <!-- 2. BRIEF -->
+  <section aria-labelledby="brief-h">
+    <div class="brief">
+      <div>
+        <h2 id="brief-h">The brief</h2>
+        <div class="body">
+          <p>Walk karein means “let’s walk”: a phrase you hear on every street, said warmly, nudging you forward. Walkarein wanted to be that voice in footwear: the down-to-earth friend who always says “Chalo, let’s go!”</p>
+          <p>The shoes were made for ordinary Pakistani days: quick errands, the office, Friday prayers. So the brand had to be friendly and approachable, never preachy, and practical, never precious. The brief set four values, listed below.</p>
+          <p>Two practical requirements shaped everything after: type had to sit comfortably beside Urdu, and the imagery had to show real people, not models posing in a catalogue.</p>
+        </div>
+      </div>
+      <div class="paper slip pass-card" style="--brand:#ff7a48">
+        <div class="pass-head" aria-hidden="true"><b>All access</b><span>No. 01</span></div>
+        <dl>
+          <div><dt>Client</dt><dd>Walkarein, Pakistan</dd></div>
+          <div><dt>Role</dt><dd>Brand designer &amp; art director</dd></div>
+          <div><dt>Year</dt><dd>2025</dd></div>
+          <div><dt>Tools</dt><dd>Illustrator, Photoshop, Lightroom</dd></div>
+          <div><dt>Status</dt><dd>Launch-ready, unreleased</dd></div>
+        </dl>
+        <p class="kicker" style="margin:18px 18px 8px; color:#2b2b2b">What I did</p>
+        <ul class="did did-card"><li>Logo</li><li>Identity system</li><li>Art direction</li><li>Shoot direction</li><li>Packaging</li><li>Retail touchpoints</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. THE FOUR VALUES -->
+  <section aria-labelledby="did-h">
+    <h2 id="did-h">The four values</h2>
+    <ol class="vals"><li class="paper"><b>1</b><span>Comfort for every step, without feeling sleepy</span></li><li class="paper"><b>2</b><span>Everyday versatility, without going generic</span></li><li class="paper"><b>3</b><span>Local pride, seen through a modern lens</span></li><li class="paper"><b>4</b><span>Movement, both literal and as a push to step into your day</span></li></ol>
+  </section>
+
+  <!-- 4. CONTEXT -->
+  <section aria-labelledby="context-h">
+    <div class="split">
+      <div>
+        <h2 id="context-h">The context</h2>
+        <div class="body">
+          <p>The closest regional reference was Walkaroo, India’s mass-market footwear brand: a leaping-kangaroo mascot, loud red and yellow, a slanted wordmark. It works for energy, but it shouts. Walkarein needed the same sense of movement in a calmer, more grown-up register, one that could sit in a mall and on a Liberty Market stall alike.</p>
+          <p>So I looked for movement in the street itself: zebra crossings, painted lane arrows, the stacked rhythm of feet on a busy crossing.</p>
+        </div>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(.8deg)"><img src="cs/walkarein/pattern-teal-2000.webp" srcset="cs/walkarein/pattern-teal-1000.webp 1000w, cs/walkarein/pattern-teal-2000.webp 2000w" sizes="(max-width:860px) 92vw, 46vw" width="2000" height="603" alt="Teal chevron pattern with one orange chevron row" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- 5. THE LOGO -->
+  <section aria-labelledby="logo-h">
+    <div class="split">
+      <div>
+        <h2 id="logo-h">The logo</h2>
+        <div class="body"><p>The first routes took walking literally. Then they got simpler, until only the rhythm was left.</p></div>
+        <ol class="routes">
+          <li><span><b>The shoe.</b> Silhouettes of a heel, a sandal and a sole. Too literal, and it locked the brand to one product.</span></li>
+          <li><span><b>The footprint.</b> A circular badge and a trail of steps across the name. Friendly, but a trope every shoe brand has used.</span></li>
+          <li><span><b>The sandal line.</b> A single-stroke slipper drawn over a baseline. Elegant, but it disappeared at small sizes.</span></li>
+          <li><span><b>The sole.</b> “WALK” and “KAREIN” set inside two shoe soles, stepping forward. Playful, but too busy for a mark.</span></li>
+          <li class="win"><span><b>The chevron.</b> Stacked Ws that read as arrows and as a crossing. This one survived.</span></li>
+        </ol>
+      </div>
+      <div class="stack">
+        <figure class="print" style="margin:0; transform:rotate(-.7deg)"><img src="cs/walkarein/routes-1600.webp" srcset="cs/walkarein/routes-800.webp 800w, cs/walkarein/routes-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="551" alt="Early logo routes: shoe silhouettes, a footprint badge, a sandal line and two soles" loading="lazy" decoding="async"></figure>
+        <figure class="print" style="margin:0; transform:rotate(.5deg)"><img src="cs/walkarein/walkarain-1600.webp" srcset="cs/walkarein/walkarain-800.webp 800w, cs/walkarein/walkarain-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="396" alt="An early version of the chevron mark with the name spelled Walkarain" loading="lazy" decoding="async"><figcaption>The name was spelled Walkarain at first.</figcaption></figure>
+      </div>
+    </div>
+    <div class="body" style="margin-top:clamp(28px,3vw,44px)"><p>The answer was the W in Walkarein, stretched and stacked three times. Read it one way and it is a letter. Read it another and it becomes:</p></div>
+    <ul class="reads">
+      <li class="paper"><b>Arrows</b><span>Pointing down and forward, carrying weight and direction.</span></li>
+      <li class="paper"><b>A zebra crossing</b><span>The repeated bars of the place where everyone walks.</span></li>
+      <li class="paper"><b>A stride</b><span>Three beats, like steps in sequence.</span></li>
+    </ul>
+    <figure class="print wide" style="transform:rotate(-.3deg)"><img src="cs/walkarein/wordmark-1600.webp" srcset="cs/walkarein/wordmark-800.webp 800w, cs/walkarein/wordmark-1600.webp 1600w" sizes="92vw" width="1600" height="480" alt="Final Walkarein mark and wordmark in white on charcoal" loading="lazy" decoding="async"></figure>
+    <div class="split" style="margin-top:clamp(28px,3vw,44px)">
+      <div class="body">
+        <p>It is simple enough to emboss on a sole and strong enough to fill a wall. Each chevron shares one angle and one stroke weight, with equal gaps between them. That keeps the mark crisp at 16 px as a favicon and at 3 m on a shopfront.</p>
+        <p>The wordmark is set in Acumin Extra Condensed: tall, upright and balanced. One detail carries the name: the K is doubled, so Walk-karein is spelled in the shapes themselves, like one foot stepping after the other.</p>
+        <p>The mark and wordmark work as a stacked lockup, a wordmark on its own, and the mark alone for small spaces.</p>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(.7deg)"><img src="cs/walkarein/lockups-1600.webp" srcset="cs/walkarein/lockups-800.webp 800w, cs/walkarein/lockups-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="800" alt="Lockups: wordmark on ivory, the mark on orange and the wordmark on teal" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- 6. COLOR -->
+  <section aria-labelledby="color-h">
+    <h2 id="color-h">The color palette</h2>
+    <div class="body"><p>The palette pairs the dust and warmth of the street with the freshness of something new. Urban Charcoal anchors the identity with structure and clarity, Ivory Breeze adds softness and breathing room, Desert Blush radiates warmth and skin tones, Sunset Glow brings energy, Deep Teal reflects movement, and Sky Haze gives openness. Every color was chosen to walk the line between grit and polish.</p></div>
+    <figure class="print wide" style="transform:rotate(.2deg)"><img src="cs/walkarein/palette-2000.webp" srcset="cs/walkarein/palette-1000.webp 1000w, cs/walkarein/palette-2000.webp 2000w" sizes="92vw" width="2000" height="444" alt="Six colors: Urban Charcoal, Ivory Breeze, Sunset Glow, Deep Teal, Sky Haze and Desert Blush" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <!-- 7. TYPE -->
+  <section aria-labelledby="type-h">
+    <h2 id="type-h">The typography</h2>
+    <div class="body"><p>Acumin Extra Condensed carries the wordmark and big headlines: condensed, upright, a little architectural. Raleway does the everyday work on labels, product cards and social posts. It is clean enough for screens and friendly enough for a shoebox.</p></div>
+    <div class="pair">
+      <figure class="print" style="margin:0"><img src="cs/walkarein/acumin-1600.webp" srcset="cs/walkarein/acumin-800.webp 800w, cs/walkarein/acumin-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="417" alt="Acumin Extra Condensed specimen" loading="lazy" decoding="async"><figcaption>Acumin Extra Condensed: wordmark and headlines.</figcaption></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/raleway-1600.webp" srcset="cs/walkarein/raleway-800.webp 800w, cs/walkarein/raleway-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="713" alt="Raleway weights from Light to Black" loading="lazy" decoding="async"><figcaption>Raleway: labels, product cards, social.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 8. GRAPHIC SYSTEM -->
+  <section aria-labelledby="graphic-h">
+    <div class="split">
+      <div>
+        <h2 id="graphic-h">The graphic system</h2>
+        <div class="body"><p>The three Ws were never meant to stay in the corner. Repeated, scaled and cropped, they become a pattern. After the shoot I composited them into the photographs: under the products, behind the people. The brand stays recognisable even with the name out of frame.</p></div>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(-.6deg)"><img src="cs/walkarein/pattern-blush-2000.webp" srcset="cs/walkarein/pattern-blush-1000.webp 1000w, cs/walkarein/pattern-blush-2000.webp 2000w" sizes="(max-width:860px) 92vw, 46vw" width="2000" height="603" alt="Blush chevron pattern with one orange chevron row" loading="lazy" decoding="async"></figure>
+    </div>
+    <figure class="print wide" style="transform:rotate(.3deg)"><img src="cs/walkarein/composite-1600.webp" srcset="cs/walkarein/composite-800.webp 800w, cs/walkarein/composite-1600.webp 1600w" sizes="92vw" width="1600" height="800" alt="A woman in green sandals sitting in front of large white chevrons composited into the studio wall" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <!-- 9. ART DIRECTION -->
+  <section aria-labelledby="art-h">
+    <div class="split">
+      <div>
+        <h2 id="art-h">The art direction</h2>
+        <div class="body"><p>For the launch collection I directed the studio shoot in person: plain backdrops, warm neutrals, everyday styling, and people who look like they’ve just stopped walking, not posing for a catalogue. In post-production I composited the chevron system into the frames, so the photographs and the identity read as one.</p></div>
+        <figure class="print" style="margin:clamp(22px,2.6vw,36px) 0 0; transform:rotate(-.8deg)"><img src="cs/walkarein/sandals-1200.webp" srcset="cs/walkarein/sandals-600.webp 600w, cs/walkarein/sandals-1200.webp 1200w" sizes="(max-width:860px) 92vw, 46vw" width="1200" height="1200" alt="Walkarein sandals arranged over the chevron mark" loading="lazy" decoding="async"></figure>
+      </div>
+      <div class="shots">
+        <figure class="print"><img src="cs/walkarein/shoot1-1000.webp" srcset="cs/walkarein/shoot1-500.webp 500w, cs/walkarein/shoot1-1000.webp 1000w" sizes="(max-width:860px) 46vw, 23vw" width="1000" height="1500" alt="A hand holding a pair of black slip-ons" loading="lazy" decoding="async"></figure>
+        <figure class="print"><img src="cs/walkarein/shoot2-1000.webp" srcset="cs/walkarein/shoot2-500.webp 500w, cs/walkarein/shoot2-1000.webp 1000w" sizes="(max-width:860px) 46vw, 23vw" width="1000" height="1500" alt="Black slides on a white stool" loading="lazy" decoding="async"></figure>
+        <figure class="print" style="grid-column:span 2"><img src="cs/walkarein/shoot3-1000.webp" srcset="cs/walkarein/shoot3-500.webp 500w, cs/walkarein/shoot3-1000.webp 1000w" sizes="(max-width:860px) 92vw, 46vw" width="1000" height="667" alt="Two people side by side in black slides and sandals" loading="lazy" decoding="async"></figure>
+        <figure class="print"><img src="cs/walkarein/shoot4-1000.webp" srcset="cs/walkarein/shoot4-500.webp 500w, cs/walkarein/shoot4-1000.webp 1000w" sizes="(max-width:860px) 46vw, 23vw" width="1000" height="1500" alt="A model lying back in light jeans and sandals" loading="lazy" decoding="async"></figure>
+        <figure class="print"><img src="cs/walkarein/shoot5-1000.webp" srcset="cs/walkarein/shoot5-500.webp 500w, cs/walkarein/shoot5-1000.webp 1000w" sizes="(max-width:860px) 46vw, 23vw" width="1000" height="1500" alt="A model seated on a stool in sandals" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. VISUAL SYSTEM -->
+  <section aria-labelledby="visual-h">
+    <h2 id="visual-h">The visual system</h2>
+    <div class="body">
+      <p>A launch needs dozens of posts, and a small team can’t art-direct each one. So I built one template that any product drops into. The shoe leads, shot on a plain backdrop. The category name sits beneath it in wide, confident capitals. Then a quiet line, collection 2025 // drop 1, and the mark signs off at the foot.</p>
+      <p>The double slash is borrowed from the logo: two strokes leaning forward, mid-stride. Nothing changes between products except the photo and the word, so a feed of slip-ons, sandals and slides still reads as one brand.</p>
+    </div>
+    <div class="trio">
+      <figure class="print" style="margin:0"><img src="cs/walkarein/post-11-900.webp" srcset="cs/walkarein/post-11-450.webp 450w, cs/walkarein/post-11-900.webp 900w" sizes="(max-width:860px) 46vw, 30vw" width="900" height="1200" alt="Slip-ons post: a hand holding black slip-ons" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/post-12-900.webp" srcset="cs/walkarein/post-12-450.webp 450w, cs/walkarein/post-12-900.webp 900w" sizes="(max-width:860px) 46vw, 30vw" width="900" height="1200" alt="Slides post: rolled jeans and black slides" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/post-13-900.webp" srcset="cs/walkarein/post-13-450.webp 450w, cs/walkarein/post-13-900.webp 900w" sizes="(max-width:860px) 92vw, 30vw" width="900" height="1200" alt="Sandals post: a seated model in black sandals" loading="lazy" decoding="async"></figure>
+    </div>
+    <p class="cap">Three products, one frame. Only the photo and the word change, so every post in the drop still reads as Walkarein.</p>
+    <div class="pair">
+      <figure class="print" style="margin:0"><img src="cs/walkarein/posts-before-1600.webp" srcset="cs/walkarein/posts-before-800.webp 800w, cs/walkarein/posts-before-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="507" alt="Earlier post layouts with the logo at the top" loading="lazy" decoding="async"><figcaption>Before: logo at the top.</figcaption></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/posts-after-1600.webp" srcset="cs/walkarein/posts-after-800.webp 800w, cs/walkarein/posts-after-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="686" alt="Final post layouts with the logo at the foot" loading="lazy" decoding="async"><figcaption>After: moving the logo to the bottom let the product lead.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 11. APPLICATIONS -->
+  <section aria-labelledby="apps-h">
+    <h2 id="apps-h">The applications</h2>
+    <div class="body"><p>The mark was tested where people actually meet it: the box they open, the bag they carry out, the sign they walk under, and the icon they tap.</p></div>
+    <div class="apps">
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-box-1200.webp" srcset="cs/walkarein/app-box-600.webp 600w, cs/walkarein/app-box-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="A black Walkarein shoebox on an orange background" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-boxes-1200.webp" srcset="cs/walkarein/app-boxes-600.webp 600w, cs/walkarein/app-boxes-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="Black, teal and orange Walkarein shoeboxes stacked on blush" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-bag-1200.webp" srcset="cs/walkarein/app-bag-600.webp 600w, cs/walkarein/app-bag-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="A kraft Walkarein shopping bag with the chevron mark in raking light" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-lightbox-1200.webp" srcset="cs/walkarein/app-lightbox-600.webp 600w, cs/walkarein/app-lightbox-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="The chevron mark on a lit lightbox above a shop entrance at night" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-hanging-1200.webp" srcset="cs/walkarein/app-hanging-600.webp 600w, cs/walkarein/app-hanging-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="A round hanging sign with the chevron mark on a street at dusk" loading="lazy" decoding="async"></figure>
+      <figure class="print" style="margin:0"><img src="cs/walkarein/app-facade-1200.webp" srcset="cs/walkarein/app-facade-600.webp 600w, cs/walkarein/app-facade-1200.webp 1200w" sizes="(max-width:860px) 46vw, 30vw" width="1200" height="800" alt="The Walkarein mark and wordmark in dimensional letters on a white facade" loading="lazy" decoding="async"></figure>
+    </div>
+    <figure class="print wide" style="transform:rotate(.3deg)"><img src="cs/walkarein/icons-2000.webp" srcset="cs/walkarein/icons-1000.webp 1000w, cs/walkarein/icons-2000.webp 2000w" sizes="92vw" width="2000" height="404" alt="App icons: the mark in each of the six palette colors" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <!-- 12. OUTCOME -->
+  <section aria-labelledby="outcome-h">
+    <div class="split" style="align-items:center">
+      <div>
+      <h2 id="outcome-h">The outcome</h2>
+      <div class="body"><p>Walkarein reached a full identity and a shot first collection, then paused before public launch when the business changed ownership. The work stands as a complete, launch-ready system: a mark that holds from favicon to shopfront, a palette with clear roles, and an art direction that turns the logo into the setting itself.</p></div>
+      <a class="more" href="https://www.behance.net/gallery/226404607/Walkarein-Brand-Identity-Launch-Art-Direction" target="_blank" rel="noopener">Full case study on Behance ↗</a>
+      </div>
+      <figure class="print" style="margin:0; transform:rotate(.6deg)"><img src="cs/walkarein/street-2000.webp" srcset="cs/walkarein/street-1000.webp 1000w, cs/walkarein/street-2000.webp 1800w" sizes="(max-width:860px) 92vw, 46vw" width="1800" height="1200" alt="Three framed launch posters on a sunlit street wall" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <!-- 13. NEXT PROJECT -->
+  <section aria-label="Next project">
+    <p class="kicker">Next project</p>
+    <div class="next">
+      <a href="https://www.behance.net/gallery/256358029/EVO9X-Design-Leadership-in-Custom-Athletic-Apparel" target="_blank" rel="noopener"><span class="big">Evo9x ↗</span></a>
+      <figure class="print" style="margin:0"><img src="covers/evo9x-440.webp" width="563" height="440" alt="Black and red Evo9x football jersey, number 5" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+</div>
+<script>
+/* Always open a page at the top (or exactly at its #section): stop the browser restoring an old scroll position,
+   and jump instantly rather than smooth-scrolling from wherever the previous page was. */
+(() => {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const land = () => {
+    const html = document.documentElement, prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    const t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (t) t.scrollIntoView(); else window.scrollTo(0, 0);
+    requestAnimationFrame(() => { html.style.scrollBehavior = prev; });
+  };
+  land();
+  addEventListener('DOMContentLoaded', land);
+  addEventListener('load', land);
+  addEventListener('pageshow', e => { if (e.persisted) land(); });
+})();
+</script>
+</body>
+</html>
