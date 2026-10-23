@@ -80,7 +80,13 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 
 /* Hero statement */
 .hero{display:block}
-.hero{overflow-x:clip}
+.wrap > .hero{position:relative; overflow:visible}
+/* Hero motif: the panel artwork drawn into a canvas (WebGL) so the cursor can send a soft ripple through it.
+   It runs edge to edge behind the hero, recoloured to suit each page colour; static image if WebGL or motion is off. */
+.motif{position:absolute; left:calc(50% - 50vw); width:100vw; top:0; bottom:0; overflow:hidden; pointer-events:none; z-index:0}
+.motif canvas, .motif img{position:absolute; left:0; top:0; display:block}
+.hero-main{position:relative; z-index:1}
+.wrap > section:not(.hero){position:relative; z-index:1}  /* the cards sit over the bottom of the motif */
 /* Headline sits at the card's vertical centre: equal space above and below */
 /* Album-cover hero: red field with grain, title pinned to the bottom like the cover of a record on a now-playing screen.
    The open middle is kept for a cut-out image later. Everything is static colour + pre-made grain. */
@@ -101,12 +107,8 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 .np .meta{display:flex; flex-direction:column; gap:5px; min-width:0}
 .np .meta b{font-weight:700; color:var(--hc); transition:color .9s ease; white-space:nowrap}
 .np .meta span{color:#b3aca1; white-space:nowrap}
-.eq{display:inline-flex; align-items:flex-end; gap:2px; height:16px; margin-left:6px}
-.eq i{display:block; width:3px; height:100%; background:var(--hc); transition:background-color .9s ease; transform-origin:bottom; transform:scaleY(.4); animation:eq 1s ease-in-out infinite}
-.eq i:nth-child(2){animation-duration:.8s; animation-delay:-.3s}
-.eq i:nth-child(3){animation-duration:1.15s; animation-delay:-.6s}
-.eq i:nth-child(4){animation-duration:.9s; animation-delay:-.15s}
-@keyframes eq{0%,100%{transform:scaleY(.3)} 50%{transform:scaleY(1)}}
+a.np{text-decoration:none; transition:transform .3s cubic-bezier(.2,.7,.1,1)}
+a.np:hover{transform:translateY(-3px)}  /* a link to the B-Sides section, not a player */
 /* tracklist (left) and liner line (right), sitting just above the title */
 .hero-meta{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:clamp(14px,1.6vw,24px)}
 .hero-name{margin:0; font-weight:700; font-size:clamp(22px,2.6vw,42px); line-height:1; letter-spacing:-.02em; text-transform:uppercase}
@@ -115,8 +117,7 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 .tracks .n{width:1.4em; opacity:.6; font-variant-numeric:tabular-nums}
 /* progress bar under the title: track · bar · place */
 @keyframes prog{from{transform:scaleX(0)} to{transform:scaleX(1)}}
-@media (prefers-reduced-motion:reduce){ .eq i{animation:none} .eq i{transform:scaleY(.7)} }
-@media (max-width:640px){ .np .meta span{display:none} .hero-name{font-size:19px} .np.tile{width:104px} .hero-main{min-height:clamp(480px, 82svh, 760px)} }
+@media (max-width:640px){ .hero-name{font-size:19px} .np.tile{width:104px} .hero-main{min-height:clamp(480px, 82svh, 760px)} }
 /* Set lines: first two left, last two right (explicit breaks in the markup) */
 .hero h1{margin:0; font-weight:500; font-size:clamp(26px,7vw,124px); line-height:.9; letter-spacing:-.045em; text-transform:uppercase}
 .hero h1 .line.r{text-align:right}
@@ -282,10 +283,11 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 .cass .stripes{position:absolute; left:-3cqw; right:-3cqw; top:50%; transform:translateY(-50%); height:46%; background:linear-gradient(#c22f26 0 33.4%, #ef7d2d 33.4% 66.7%, #f2b630 66.7%)}
 .cass .win{position:relative; width:max(220px,46cqw); height:max(64px,12cqw); border-radius:max(10px,1.6cqw); background:#141210; border:max(3px,.5cqw) solid #141210; display:flex; align-items:center; justify-content:space-between; padding:0 max(26px,6.2cqw); overflow:hidden}
 .cass .win .glass{position:absolute; left:36%; right:36%; top:22%; bottom:22%; background:#3b2b20; border-radius:2px}
-.cass .spool{position:relative; z-index:1; width:max(40px,7.6cqw); aspect-ratio:1; border-radius:50%; background-color:var(--hc); background-image:radial-gradient(circle closest-side, transparent 0 74%, #f4efe4 75% 100%), var(--paper-grain); background-attachment:scroll, fixed; transition:transform 1.6s linear}
+.cass .spool{position:relative; z-index:1; width:max(40px,7.6cqw); aspect-ratio:1; border-radius:50%; background-color:var(--hc); background-image:radial-gradient(circle closest-side, transparent 0 74%, #f4efe4 75% 100%); transition:transform 1.6s linear}
 .cass .spool::before{content:""; position:absolute; inset:11%; border-radius:50%; background:conic-gradient(from -7deg, #f4efe4 0deg 14deg, transparent 14deg 60deg, #f4efe4 60deg 74deg, transparent 74deg 120deg, #f4efe4 120deg 134deg, transparent 134deg 180deg, #f4efe4 180deg 194deg, transparent 194deg 240deg, #f4efe4 240deg 254deg, transparent 254deg 300deg, #f4efe4 300deg 314deg, transparent 314deg 360deg)}
 .cass .spool::after{content:""; position:absolute; inset:25%; border-radius:50%}  /* covers the middle so the teeth only show at the rim of the hub, attached to the white */
-.cass .spool{animation:spool 2.4s linear infinite}  /* always playing */
+.cass .spool{animation:spool 2.4s linear infinite; animation-play-state:paused}
+.cass.on .spool{animation-play-state:running}  /* turns whenever the cassette is on screen */
 @keyframes spool{to{transform:rotate(-360deg)}}
 @media (prefers-reduced-motion:reduce){ .cass .spool{animation:none} }
 /* printed foot of the label */
@@ -306,8 +308,8 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 /* bottom tab of the shell: trapezoid with the drive holes and a printed line */
 .cass .tab{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:58%; height:0; border-bottom:9.4cqw solid #2b2824; border-left:4.4cqw solid transparent; border-right:4.4cqw solid transparent}
 .cass .tab-in{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:50%; height:9.4cqw; display:flex; align-items:center; justify-content:space-between; padding:0 5cqw}
-/* see-through holes: painted with the page colour and the same grain, pinned to the screen, so they line up with the background behind */
-.cass .hole, .cass .spool::after{background-color:var(--hc); background-image:var(--paper-grain); background-attachment:fixed; transition:background-color .9s ease}
+/* see-through holes: flat page colour (no screen-pinned texture, so scrolling never has to repaint them) */
+.cass .hole, .cass .spool::after{background-color:var(--hc); transition:background-color .9s ease}
 .cass .hole{width:max(10px,2.4cqw); aspect-ratio:1; border-radius:50%}
 .cass .hole.sm{width:max(7px,1.4cqw); border-radius:2px}
 /* Copying the email: a quick note in pen appears above it (opacity only) */
@@ -643,8 +645,6 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible{outline:2px 
 /* working together: a handwritten setlist gaffer-taped to the stage */
 .setlist{grid-column:1 / -1; position:relative; justify-self:start; width:min(100%,640px); margin:14px 0 6px; padding:clamp(26px,3vw,40px) clamp(24px,3vw,44px) clamp(22px,2.6vw,34px);
   background-color:#fbf8f1; background-image:var(--paper-grain); border-image:var(--shadow-paper); transform:rotate(-1deg)}
-.gaffer{position:absolute; top:-14px; width:110px; height:30px; background:url("assets/gaffer.webp") center / 100% 100% no-repeat; pointer-events:none}
-.gaffer.g1{left:-18px; transform:rotate(-24deg)} .gaffer.g2{right:-18px; transform:rotate(21deg)}
 .set-head{margin:0 0 12px; font-family:var(--hand); font-size:clamp(34px,3.2vw,48px); line-height:1; color:var(--accent); transform:rotate(-2deg)}
 .setlist ol{list-style:none; margin:0; padding:0; counter-reset:s}
 .setlist li:first-child{border-top:0; padding-top:4px}
@@ -703,9 +703,10 @@ html{overflow-x:clip}
   </div>
 
   <section class="hero" id="top" aria-label="Introduction">
+    <div class="motif" id="motif" aria-hidden="true"></div>
     <div class="hero-main">
       <div class="hero-top">
-        <div class="np" aria-hidden="true" id="np2"><span class="art"><img class="ph on" src="covers/sq-samanreads-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-rain-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-aangan-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-novel-nexus-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-illustration-360.webp" alt="" decoding="async"></span><span class="meta"><b>Now playing</b><span>B-Sides</span></span><span class="eq"><i></i><i></i><i></i><i></i></span></div>
+        <a class="np" id="np2" href="#concepts"><span class="art"><img class="ph on" src="covers/sq-samanreads-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-rain-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-aangan-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-novel-nexus-360.webp" alt="" decoding="async"><img class="ph" src="covers/sq-illustration-360.webp" alt="" decoding="async"></span><span class="meta"><b>B-Sides</b><span>Personal projects ↓</span></span></a>
         <button class="menu-btn hero-menu" id="menu-open-hero" aria-expanded="false" aria-controls="overlay" aria-label="Menu" title="Menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
       </div>
       <div class="hero-meta">
@@ -725,7 +726,7 @@ html{overflow-x:clip}
           <div class="gig-head"><p class="addr">DTC footwear, Pakistan</p><svg class="gig-art" viewBox="0 0 150 60" aria-hidden="true"><line x1="4" y1="2" x2="4" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="2" x2="9" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="2" x2="14" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="19" y1="2" x2="19" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="24" y1="2" x2="24" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="29" y1="2" x2="29" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="34" y1="2" x2="34" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="39" y1="2" x2="39" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="44" y1="2" x2="44" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="49" y1="2" x2="49" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="54" y1="2" x2="54" y2="58" stroke="currentColor" stroke-width="1.2"/><line x1="59" y1="2" x2="59" y2="58" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="23" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="13" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="30" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></div>
           <div class="gig-field">
             <p class="nm">Streetfeet</p>
-            <div class="print"><div class="frame"><img src="covers/streetfeet-880.webp" srcset="covers/streetfeet-440.webp 513w, covers/streetfeet-880.webp 1026w" sizes="(max-width:520px) 210px, clamp(256px, 25.6vw, 396px)" width="1026" height="880" alt="Streetfeet flip-flops in pink, orange and blue on matching boxes" decoding="async" draggable="false"><img class="blur" src="covers/streetfeet-blur.webp" alt="" aria-hidden="true" decoding="async" draggable="false"><span class="over" aria-hidden="true"><span class="logo" style="--ar:2.617; --k:1.961"><svg viewBox="0 0 144 55.02" aria-hidden="true" focusable="false"><path d="M28.07,11s.09-.03.14-.03c.13,0,.26,0,.39,0h8.62c.13,0,.26,0,.39,0,.11,0,.2-.05.26-.14.09-.12.19-.24.29-.37,2.15-2.76,4.29-5.51,6.44-8.27.3-.38.66-.69,1.08-.94.44-.26.9-.46,1.38-.61.54-.17,1.1-.3,1.66-.39.84-.14,1.69-.21,2.55-.24.65-.02,1.29-.02,1.94-.02.4,0,.8.03,1.2.09.61.1,1.23.17,1.84.26.68.1,1.35.22,2.03.33.64.11,1.27.23,1.91.35.71.14,1.42.27,2.13.42,1.07.23,2.15.47,3.21.73,1.16.28,2.31.58,3.45.9,1.24.35,2.48.73,3.71,1.13,1.18.39,2.34.82,3.5,1.26,2.45.93,4.9,1.88,7.33,2.86,1.98.8,3.95,1.61,5.9,2.47.06.03.12.05.18.08.11.05.22.07.34.07.14,0,.28,0,.43,0h25c.16,0,.31,0,.47,0,.11,0,.17.05.18.16.01.21.03.41.03.62,0,1.14-.38,2.15-1.08,3.05-.38.48-.83.88-1.34,1.22-.52.35-1.07.62-1.65.85-.74.28-1.5.48-2.28.62-.92.17-1.84.27-2.77.31-.21,0-.41,0-.62,0-17.76,0-35.53,0-53.29,0-4.98,0-9.96,0-14.94,0-.88,0-1.76-.05-2.63-.16-.82-.1-1.63-.25-2.43-.48-.77-.22-1.52-.52-2.21-.93-.62-.36-1.17-.81-1.63-1.36-.58-.71-.94-1.51-1.09-2.41-.06-.4-.07-.8-.05-1.2,0-.09.02-.18.07-.27ZM70.23,10.93c-.26-.04-.45-.09-.64-.11-.28-.03-.57-.06-.85-.11-.61-.09-1.23-.19-1.84-.28-.54-.09-1.07-.17-1.61-.27-.74-.14-1.47-.27-2.21-.42-1.04-.21-2.08-.43-3.11-.66-1.36-.31-2.72-.63-4.07-.98-1.43-.37-2.85-.75-4.27-1.15-1.69-.48-3.38-.98-5.06-1.5-.09-.03-.17-.05-.26-.08-.08-.02-.15,0-.2.07-.07.09-.15.18-.22.27-1.29,1.61-2.57,3.21-3.86,4.82-.09.12-.23.21-.25.38,0,.06.05.07.47.07h27.29c.17,0,.34,0,.5,0,.03,0,.07-.01.18-.04ZM51.87,3.39s.01.05.03.06c.05.03.11.06.17.09.76.3,1.53.57,2.3.83,1.08.36,2.17.69,3.26,1,1.42.4,2.85.76,4.28,1.1,1.28.3,2.57.58,3.86.85.85.17,1.7.34,2.55.5.77.15,1.55.29,2.33.43.53.1,1.07.18,1.61.27.55.09,1.1.18,1.65.27.42.07.84.13,1.26.19.41.06.82.12,1.23.18.49.07.97.14,1.46.21.49.07.97.14,1.46.2.46.06.92.12,1.39.17.09.01.18.03.27,0,0,0,.02-.02.02-.02,0-.01,0-.03-.01-.03-.16-.06-.31-.12-.47-.17-1.43-.46-2.85-.92-4.29-1.36-3.89-1.2-7.81-2.32-11.77-3.27-.85-.2-1.71-.39-2.57-.58-1-.22-2-.41-3.01-.58-.61-.1-1.22-.2-1.84-.28-.27-.03-.54-.07-.81-.1-.5-.06-1-.11-1.51-.13-.48-.01-.96-.01-1.44-.01-.38,0-.75.05-1.12.11-.1.02-.21.03-.29.09Z"/><g><path d="M1.21,51.66c-.65-1.38-1.04-3.23-1.16-5.48-.04-.82.13-1.51,1.42-1.51h.65c1.25,0,1.38.6,1.42,1.34.09,2.16.52,3.45.86,4.14.52,1.12,1.25,1.25,1.81,1.25.73,0,1.21-.26,1.64-.82.43-.69.73-1.68.82-2.89.17-3.32-.47-5.22-2.29-6.56l-.26-.17c-3.02-2.24-6.12-4.53-6.12-9.53,0-2.11.52-3.92,1.47-5.3,1.08-1.6,2.76-2.46,4.74-2.46,1.21,0,2.29.47,3.1,1.34,1.38,1.42,1.6,3.71,1.64,5.13.04.91-.17,1.25-1.12,1.21h-.65l-.73-.04c-.65,0-.78-.35-.82-.78-.09-1.08-.09-1.81-.39-2.37-.43-.73-.86-.82-1.25-.82-.78,0-1.16.26-1.6.91-.52.73-.78,1.85-.78,3.19,0,3.02,1.6,4.31,4.66,6.6l.22.17c1.64,1.21,2.76,2.76,3.32,4.7.43,1.38.56,2.98.43,5-.09,1.9-.6,3.54-1.47,4.74-1.08,1.55-2.72,2.37-4.57,2.37-2.2,0-3.97-1.16-5-3.36Z"/><path d="M18.8,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.86c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/><path d="M35.19,47.39c-.43.43-.6.95-.6,1.68v4.61c0,.78-.13.99-.99.99h-1.6c-.82,0-.99-.26-.99-.99v-27.65c0-1.21.95-2.2,2.16-2.2h3.75c3.49.04,6.38,5.13,6.34,11.43-.04,5.99-2.98,9.36-2.98,9.36-.3.35-.3.82-.22,1.25l.22,1.29,1.55,6.38c.13.56.09,1.08-.86,1.08l-1.81.04c-.69,0-.78-.3-.91-.69l-1.34-5.74s-.43-1.64-1.73-.86ZM39.72,35.31c0-3.32-.47-5.39-1.94-6.9-.39-.43-.95-.65-1.51-.73-.86-.13-1.64.52-1.64,1.38v12.81c0,.73.35,1.21,1.38,1.04,1.73-.3,3.71-2.46,3.71-7.59Z"/><path d="M52.01,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M66.28,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M80.13,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.85c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/><path d="M93.15,54.68c-.86,0-1.55.13-1.55-1.12v-28.12c0-.86.69-1.6,1.55-1.6h6.3c.56,0,1.04.47,1.04,1.08v1.6c0,.6-.47,1.08-1.04,1.08h-3.23c-.6,0-1.12.47-1.12,1.12v10.95c0,.6.22,1.12,1.12,1.12h2.16c.52,0,.95.39.95.91v1.85c0,.52-.43.95-.95.95h-2.16c-.6,0-1.08.52-1.08,1.12l-.04,4.23v4.05c0,.73-.6.78-1.29.78h-.65Z"/><path d="M108.2,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M122.48,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M136.32,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.85c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/></g></svg></span></span></div></div>
+            <div class="print"><div class="frame"><img src="covers/streetfeet-880.webp" srcset="covers/streetfeet-440.webp 567w, covers/streetfeet-880.webp 1134w" sizes="(max-width:520px) 232px, clamp(284px, 28.4vw, 438px)" width="1134" height="880" alt="Hands bending a black Streetfeet flip-flop printed with pink flowers, on a pink background" decoding="async" draggable="false"><img class="blur" src="covers/streetfeet-blur.webp" alt="" aria-hidden="true" decoding="async" draggable="false"><span class="over" aria-hidden="true"><span class="logo" style="--ar:2.617; --k:1.961"><svg viewBox="0 0 144 55.02" aria-hidden="true" focusable="false"><path d="M28.07,11s.09-.03.14-.03c.13,0,.26,0,.39,0h8.62c.13,0,.26,0,.39,0,.11,0,.2-.05.26-.14.09-.12.19-.24.29-.37,2.15-2.76,4.29-5.51,6.44-8.27.3-.38.66-.69,1.08-.94.44-.26.9-.46,1.38-.61.54-.17,1.1-.3,1.66-.39.84-.14,1.69-.21,2.55-.24.65-.02,1.29-.02,1.94-.02.4,0,.8.03,1.2.09.61.1,1.23.17,1.84.26.68.1,1.35.22,2.03.33.64.11,1.27.23,1.91.35.71.14,1.42.27,2.13.42,1.07.23,2.15.47,3.21.73,1.16.28,2.31.58,3.45.9,1.24.35,2.48.73,3.71,1.13,1.18.39,2.34.82,3.5,1.26,2.45.93,4.9,1.88,7.33,2.86,1.98.8,3.95,1.61,5.9,2.47.06.03.12.05.18.08.11.05.22.07.34.07.14,0,.28,0,.43,0h25c.16,0,.31,0,.47,0,.11,0,.17.05.18.16.01.21.03.41.03.62,0,1.14-.38,2.15-1.08,3.05-.38.48-.83.88-1.34,1.22-.52.35-1.07.62-1.65.85-.74.28-1.5.48-2.28.62-.92.17-1.84.27-2.77.31-.21,0-.41,0-.62,0-17.76,0-35.53,0-53.29,0-4.98,0-9.96,0-14.94,0-.88,0-1.76-.05-2.63-.16-.82-.1-1.63-.25-2.43-.48-.77-.22-1.52-.52-2.21-.93-.62-.36-1.17-.81-1.63-1.36-.58-.71-.94-1.51-1.09-2.41-.06-.4-.07-.8-.05-1.2,0-.09.02-.18.07-.27ZM70.23,10.93c-.26-.04-.45-.09-.64-.11-.28-.03-.57-.06-.85-.11-.61-.09-1.23-.19-1.84-.28-.54-.09-1.07-.17-1.61-.27-.74-.14-1.47-.27-2.21-.42-1.04-.21-2.08-.43-3.11-.66-1.36-.31-2.72-.63-4.07-.98-1.43-.37-2.85-.75-4.27-1.15-1.69-.48-3.38-.98-5.06-1.5-.09-.03-.17-.05-.26-.08-.08-.02-.15,0-.2.07-.07.09-.15.18-.22.27-1.29,1.61-2.57,3.21-3.86,4.82-.09.12-.23.21-.25.38,0,.06.05.07.47.07h27.29c.17,0,.34,0,.5,0,.03,0,.07-.01.18-.04ZM51.87,3.39s.01.05.03.06c.05.03.11.06.17.09.76.3,1.53.57,2.3.83,1.08.36,2.17.69,3.26,1,1.42.4,2.85.76,4.28,1.1,1.28.3,2.57.58,3.86.85.85.17,1.7.34,2.55.5.77.15,1.55.29,2.33.43.53.1,1.07.18,1.61.27.55.09,1.1.18,1.65.27.42.07.84.13,1.26.19.41.06.82.12,1.23.18.49.07.97.14,1.46.21.49.07.97.14,1.46.2.46.06.92.12,1.39.17.09.01.18.03.27,0,0,0,.02-.02.02-.02,0-.01,0-.03-.01-.03-.16-.06-.31-.12-.47-.17-1.43-.46-2.85-.92-4.29-1.36-3.89-1.2-7.81-2.32-11.77-3.27-.85-.2-1.71-.39-2.57-.58-1-.22-2-.41-3.01-.58-.61-.1-1.22-.2-1.84-.28-.27-.03-.54-.07-.81-.1-.5-.06-1-.11-1.51-.13-.48-.01-.96-.01-1.44-.01-.38,0-.75.05-1.12.11-.1.02-.21.03-.29.09Z"/><g><path d="M1.21,51.66c-.65-1.38-1.04-3.23-1.16-5.48-.04-.82.13-1.51,1.42-1.51h.65c1.25,0,1.38.6,1.42,1.34.09,2.16.52,3.45.86,4.14.52,1.12,1.25,1.25,1.81,1.25.73,0,1.21-.26,1.64-.82.43-.69.73-1.68.82-2.89.17-3.32-.47-5.22-2.29-6.56l-.26-.17c-3.02-2.24-6.12-4.53-6.12-9.53,0-2.11.52-3.92,1.47-5.3,1.08-1.6,2.76-2.46,4.74-2.46,1.21,0,2.29.47,3.1,1.34,1.38,1.42,1.6,3.71,1.64,5.13.04.91-.17,1.25-1.12,1.21h-.65l-.73-.04c-.65,0-.78-.35-.82-.78-.09-1.08-.09-1.81-.39-2.37-.43-.73-.86-.82-1.25-.82-.78,0-1.16.26-1.6.91-.52.73-.78,1.85-.78,3.19,0,3.02,1.6,4.31,4.66,6.6l.22.17c1.64,1.21,2.76,2.76,3.32,4.7.43,1.38.56,2.98.43,5-.09,1.9-.6,3.54-1.47,4.74-1.08,1.55-2.72,2.37-4.57,2.37-2.2,0-3.97-1.16-5-3.36Z"/><path d="M18.8,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.86c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/><path d="M35.19,47.39c-.43.43-.6.95-.6,1.68v4.61c0,.78-.13.99-.99.99h-1.6c-.82,0-.99-.26-.99-.99v-27.65c0-1.21.95-2.2,2.16-2.2h3.75c3.49.04,6.38,5.13,6.34,11.43-.04,5.99-2.98,9.36-2.98,9.36-.3.35-.3.82-.22,1.25l.22,1.29,1.55,6.38c.13.56.09,1.08-.86,1.08l-1.81.04c-.69,0-.78-.3-.91-.69l-1.34-5.74s-.43-1.64-1.73-.86ZM39.72,35.31c0-3.32-.47-5.39-1.94-6.9-.39-.43-.95-.65-1.51-.73-.86-.13-1.64.52-1.64,1.38v12.81c0,.73.35,1.21,1.38,1.04,1.73-.3,3.71-2.46,3.71-7.59Z"/><path d="M52.01,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M66.28,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M80.13,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.85c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/><path d="M93.15,54.68c-.86,0-1.55.13-1.55-1.12v-28.12c0-.86.69-1.6,1.55-1.6h6.3c.56,0,1.04.47,1.04,1.08v1.6c0,.6-.47,1.08-1.04,1.08h-3.23c-.6,0-1.12.47-1.12,1.12v10.95c0,.6.22,1.12,1.12,1.12h2.16c.52,0,.95.39.95.91v1.85c0,.52-.43.95-.95.95h-2.16c-.6,0-1.08.52-1.08,1.12l-.04,4.23v4.05c0,.73-.6.78-1.29.78h-.65Z"/><path d="M108.2,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M122.48,28.72v11c0,.6.47,1.12,1.12,1.12h2.16c.52,0,.91.43.91.95v1.85c0,.52-.39.91-.91.91h-.91l-1.25.04c-.65,0-1.12.47-1.12,1.12v4.23c0,1.08,0,1.12,1.08,1.12h3.32c.52,0,.91.43.91.95v1.73c0,.52-.17.95-.91.95h-6.38c-.86,0-1.55-.3-1.55-1.55v-27.69c0-.86.69-1.6,1.55-1.6h6.3c.6,0,1.08.47,1.08,1.08v1.6c0,.6-.47,1.08-1.08,1.08h-3.23c-.6,0-1.08.52-1.08,1.12Z"/><path d="M136.32,28.76c0-.69-.56-1.25-1.25-1.25h-1.9c-.56,0-.99-.43-.99-.99v-1.6c0-.52.43-.95.99-.95h9.83c.56,0,.99.43.99.95v1.6c0,.56-.43.99-.99.99h-1.85c-.69,0-1.25.56-1.25,1.25v24.93c0,.56-.17.99-.99.99h-1.6c-.82,0-1.04-.43-1.04-.99v-21.74l.04-3.19Z"/></g></svg></span></span></div></div>
             <div class="gig-foot"><span class="gig-date">2024 → 2026</span><span class="gig-link">Case study<i></i>↗</span></div>
           </div>
         </div>
@@ -1023,11 +1024,194 @@ html{overflow-x:clip}
   };
   { const ph = [...document.querySelectorAll('#np2 .ph')]; let k = 0;
     if (!REDUCE) setInterval(() => { ph[k].classList.remove('on'); k = (k + 1) % ph.length; ph[k].classList.add('on'); }, 3100); }
+  // ---- Hero motif with a cursor ripple blur (WebGL). The artwork is rasterised once per size; the shader softens it in a widening ring. ----
+  (() => {
+    const box = document.getElementById('motif'), hero = document.querySelector('.hero');
+    if (!box) return;
+    const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+    let col = hex('#fe96ce'), from = col, to = col, colT0 = 0;
+    const COL_MS = 900;
+    const art = new Image(); art.src = 'assets/motif.svg';
+    const VW = 1004.81, VH = 799.14, ART_TOP = 40;   // artwork size in the SVG, and the empty space above the arch tips
+    // Layout: centred; the arch tips start just below the B-Sides card; the bottom runs past the hero and tucks behind Featured Work.
+    // The motif layer starts at the top of the page and is made as tall as the artwork needs.
+    const fitTop = () => {
+      const pageTop = hero.getBoundingClientRect().top + scrollY, W = box.clientWidth;
+      const w = W < 700 ? Math.max(W * 2.3, 820) : W * .96, h = w * VH / VW;
+      const card = document.getElementById('np2'), gap = W < 700 ? 20 : 28;
+      const cardBottom = card ? card.getBoundingClientRect().bottom + scrollY : pageTop + 100;
+      const y = cardBottom + gap - ART_TOP * w / VW;   // page y of the artwork's top edge
+      box.style.top = -pageTop + 'px';
+      box.style.bottom = 'auto';
+      box.style.height = Math.ceil(y + h) + 'px';
+      box._p = { x: (W - w) / 2, y, w, h };
+    };
+    const place = () => ({ W: box.clientWidth, H: box.clientHeight, ...box._p });
+    const canvas = document.createElement('canvas');
+    const gl = !REDUCE && canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, preserveDrawingBuffer: true });   // kept between frames so only the rippled patch is redrawn
+    if (!gl) {   // fallback: a still image, recoloured by drawing it into a 2D canvas
+      const c2 = canvas.getContext('2d'); box.append(canvas);
+      const draw = () => { if (!art.complete) return; fitTop(); const p = place(), d = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = p.W * d; canvas.height = p.H * d; canvas.style.width = p.W + 'px'; canvas.style.height = p.H + 'px';
+        c2.setTransform(d, 0, 0, d, 0, 0); c2.clearRect(0, 0, p.W, p.H); c2.drawImage(art, p.x, p.y, p.w, p.h);
+        c2.globalCompositeOperation = 'source-in'; c2.fillStyle = 'rgb(' + col.map(v => v * 255) + ')'; c2.fillRect(0, 0, p.W, p.H); c2.globalCompositeOperation = 'source-over'; };
+      art.onload = draw; addEventListener('resize', draw);
+      window.motifColor = h => { col = hex(h); draw(); };
+      return;
+    }
+    box.append(canvas);
+    const N = 12;   // ripple drops kept at once
+    const vs = 'attribute vec2 p; varying vec2 uv; void main(){ uv = p * .5 + .5; uv.y = 1. - uv.y; gl_Position = vec4(p, 0., 1.); }';
+    const fs = `precision mediump float; varying vec2 uv; uniform sampler2D tex; uniform vec2 res; uniform vec3 col; uniform vec3 drops[${N}]; uniform vec2 dirs[${N}]; uniform float amp, ring, wamp;
+      float A(vec2 p){ return texture2D(tex, p / res).a; }
+      void main(){
+        vec2 px = uv * res, off = vec2(0.), dir = vec2(0.); float k = 0.;
+        for (int i = 0; i < ${N}; i++) {
+          vec3 d = drops[i]; if (d.z <= 0.) continue;           // z = remaining life 0..1
+          vec2 v = px - d.xy; float r = length(v);
+          float age = 1. - d.z, front = age * ring;             // a soft ring that widens as the drop ages
+          float band = exp(-pow((r - front) / (ring * .5), 2.)) * d.z * d.z;   // wide, gaussian falloff: no hard rim
+          k += band; dir += dirs[i] * band;                      // smear follows the way the cursor was moving
+          if (r > .001) off += v / r * sin((r - front) / (ring * .11)) * band * wamp;   // a faint water ripple in the same ring
+        }
+        k = min(k, 1.);
+        px -= off;
+        float a0 = A(px);
+        vec3 a3 = vec3(a0);
+        if (k > .003) {
+          // motion smear with colour separation: red trails furthest, blue least, so the trailing edge bleeds into warm fringes
+          vec2 s = (length(dir) > .0001 ? normalize(dir) : vec2(1., 0.)) * k * amp;
+          vec3 acc = vec3(0.);
+          for (int j = 0; j < 14; j++) {
+            float t = float(j) / 13.;
+            acc.r += A(px - s * t * 1.4);
+            acc.g += A(px - s * t);
+            acc.b += A(px - s * t * .65);
+          }
+          a3 = mix(vec3(a0), acc / 14., smoothstep(0., .7, k));
+        }
+        float a = max(a3.r, max(a3.g, a3.b)), spread = a - min(a3.r, min(a3.g, a3.b));
+        // where the three smears disagree, the edge bleeds into a warm fringe (amber into red), like light through a lens
+        vec3 warm = mix(vec3(1., .62, .22), vec3(.85, .2, .12), smoothstep(.2, .8, a3.r - a3.b));
+        gl_FragColor = vec4(mix(col * a, warm * a, clamp(spread * 1.6, 0., .85)), a);
+      }`;
+    // pass 2: a soft blur laid over the smeared, colour-split image, only inside the same feathered rings
+    const fs2 = `precision mediump float; uniform sampler2D img; uniform vec2 res; uniform vec3 drops[${N}]; uniform float ring, bamp;
+      void main(){
+        vec2 q = gl_FragCoord.xy / res, px = vec2(gl_FragCoord.x, res.y - gl_FragCoord.y); float k = 0.;
+        for (int i = 0; i < ${N}; i++) {
+          vec3 d = drops[i]; if (d.z <= 0.) continue;
+          float r = length(px - d.xy), front = (1. - d.z) * ring;
+          k += exp(-pow((r - front) / (ring * .5), 2.)) * d.z * d.z;
+        }
+        k = min(k, 1.);
+        vec4 c0 = texture2D(img, q);
+        if (k > .003) {
+          float b = k * bamp; vec4 c = vec4(0.);
+            c += texture2D(img, q + vec2(0.1443, 0.0000) * b / res);
+            c += texture2D(img, q + vec2(-0.1843, 0.1689) * b / res);
+            c += texture2D(img, q + vec2(0.0282, -0.3215) * b / res);
+            c += texture2D(img, q + vec2(0.2324, 0.3031) * b / res);
+            c += texture2D(img, q + vec2(-0.4264, -0.0754) * b / res);
+            c += texture2D(img, q + vec2(0.4039, -0.2569) * b / res);
+            c += texture2D(img, q + vec2(-0.1351, 0.5026) * b / res);
+            c += texture2D(img, q + vec2(-0.2577, -0.4961) * b / res);
+            c += texture2D(img, q + vec2(0.5590, 0.2041) * b / res);
+            c += texture2D(img, q + vec2(-0.5815, 0.2401) * b / res);
+            c += texture2D(img, q + vec2(0.2803, -0.5991) * b / res);
+            c += texture2D(img, q + vec2(0.2072, 0.6605) * b / res);
+            c += texture2D(img, q + vec2(-0.6244, -0.3618) * b / res);
+            c += texture2D(img, q + vec2(0.7325, -0.1611) * b / res);
+            c += texture2D(img, q + vec2(-0.4470, 0.6359) * b / res);
+            c += texture2D(img, q + vec2(-0.1033, -0.7970) * b / res);
+            c += texture2D(img, q + vec2(0.6340, 0.5343) * b / res);
+            c += texture2D(img, q + vec2(-0.8532, 0.0353) * b / res);
+            c += texture2D(img, q + vec2(0.6223, -0.6193) * b / res);
+            c += texture2D(img, q + vec2(-0.0416, 0.9004) * b / res);
+            c += texture2D(img, q + vec2(-0.5922, -0.7096) * b / res);
+            c += texture2D(img, q + vec2(0.9380, 0.1261) * b / res);
+            c += texture2D(img, q + vec2(-0.7948, 0.5531) * b / res);
+            c += texture2D(img, q + vec2(0.2171, -0.9654) * b / res);
+          c0 = mix(c0, c / 24., smoothstep(0., .7, k));
+        }
+        gl_FragColor = c0;
+      }`;
+    const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+    const prog = f => { const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, f)); gl.linkProgram(p); return p; };
+    const pr = prog(fs), pr2 = prog(fs2); gl.useProgram(pr);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    [pr, pr2].forEach(p => { const loc = gl.getAttribLocation(p, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0); });
+    const U = n => gl.getUniformLocation(pr, n), uWamp = U('wamp'), uRes = U('res'), uCol = U('col'), uDrops = U('drops'), uDirs = U('dirs'), uAmp = U('amp'), uRing = U('ring');
+    const U2 = n => gl.getUniformLocation(pr2, n), u2Img = U2('img'), u2Res = U2('res'), u2Drops = U2('drops'), u2Ring = U2('ring'), u2Bamp = U2('bamp'), uTex = U('tex');
+    const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+    [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([k, v]) => gl.texParameteri(gl.TEXTURE_2D, k, v));
+    const mkTex = () => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([k, v]) => gl.texParameteri(gl.TEXTURE_2D, k, v)); return t; };
+    const fboTex = mkTex(), fbo = gl.createFramebuffer();   // pass 1 renders here, pass 2 blurs it onto the screen
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, fboTex, 0); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    const off = document.createElement('canvas'), oc = off.getContext('2d');
+    let dpr = 1, drops = [], raf = 0, last = null, prevBox = null, full = true, seen = true;
+    const LIFE = 1700;   // ms a drop takes to settle back
+    const size = () => {
+      if (!art.complete || !art.naturalWidth) return;
+      fitTop(); const p = place(); dpr = Math.min(devicePixelRatio || 1, 1.5);   // 1.5x is crisp for these flat shapes and much lighter than 2x
+      canvas.width = off.width = Math.round(p.W * dpr); canvas.height = off.height = Math.round(p.H * dpr);
+      canvas.style.width = p.W + 'px'; canvas.style.height = p.H + 'px';
+      oc.setTransform(dpr, 0, 0, dpr, 0, 0); oc.clearRect(0, 0, p.W, p.H); oc.drawImage(art, p.x, p.y, p.w, p.h);
+      gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, off);
+      gl.bindTexture(gl.TEXTURE_2D, fboTex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, canvas.width, canvas.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.viewport(0, 0, canvas.width, canvas.height); full = true; prevBox = null; frame();
+    };
+    const frame = () => {
+      const now = performance.now();
+      const t = Math.min(1, (now - colT0) / COL_MS); col = from.map((v, i) => v + (to[i] - v) * t);
+      drops = drops.filter(d => now - d.t < LIFE);
+      // redraw only the patch the ripples touch (plus last frame's patch, to clean up); the whole canvas only for colour fades and resizes
+      const R = 260 * dpr; let box = null;
+      drops.forEach(d => { const b = [d.x * dpr - R, d.y * dpr - R, d.x * dpr + R, d.y * dpr + R];
+        box = box ? [Math.min(box[0], b[0]), Math.min(box[1], b[1]), Math.max(box[2], b[2]), Math.max(box[3], b[3])] : b; });
+      let clip = box && prevBox ? [Math.min(box[0], prevBox[0]), Math.min(box[1], prevBox[1]), Math.max(box[2], prevBox[2]), Math.max(box[3], prevBox[3])] : (box || prevBox);
+      if (full || t < 1) clip = [0, 0, canvas.width, canvas.height];
+      prevBox = box; full = false;
+      if (!clip) { raf = 0; return; }
+      const sx = Math.max(0, Math.floor(clip[0])), sy = Math.max(0, Math.floor(clip[1])), sw = Math.min(canvas.width, Math.ceil(clip[2])) - sx, sh2 = Math.min(canvas.height, Math.ceil(clip[3])) - sy;
+      gl.enable(gl.SCISSOR_TEST); gl.scissor(sx, canvas.height - sy - sh2, Math.max(0, sw), Math.max(0, sh2));
+      const arr = new Float32Array(N * 3), dv = new Float32Array(N * 2);
+      drops.slice(-N).forEach((d, i) => { arr[i * 3] = d.x * dpr; arr[i * 3 + 1] = d.y * dpr; arr[i * 3 + 2] = 1 - (now - d.t) / LIFE; dv[i * 2] = d.dx; dv[i * 2 + 1] = d.dy; });
+      // pass 1: smear + colour split + bleed, into the offscreen texture
+      gl.useProgram(pr); gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform1i(uTex, 0);
+      gl.uniform2f(uRes, canvas.width, canvas.height); gl.uniform3f(uCol, ...col); gl.uniform3fv(uDrops, arr); gl.uniform2fv(uDirs, dv);
+      gl.uniform1f(uAmp, 18 * dpr); gl.uniform1f(uRing, 110 * dpr); gl.uniform1f(uWamp, 4 * dpr);   // smear up to ~18px with colour fringes, faint ~4px ripple, ring about 110px
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      // pass 2: soft blur over that result, onto the screen
+      gl.useProgram(pr2); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.bindTexture(gl.TEXTURE_2D, fboTex); gl.uniform1i(u2Img, 0);
+      gl.uniform2f(u2Res, canvas.width, canvas.height); gl.uniform3fv(u2Drops, arr); gl.uniform1f(u2Ring, 110 * dpr); gl.uniform1f(u2Bamp, 8 * dpr);   // ~8px soft blur on top
+      gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      raf = (drops.length || prevBox || t < 1) ? requestAnimationFrame(frame) : 0;   // idle when nothing is moving
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    // nothing runs while the hero is off screen; a colour change there is applied the moment it comes back
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; if (seen) { full = true; kick(); } }).observe(hero);
+    addEventListener('pointermove', e => {
+      if (!seen) return;
+      const r = box.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      if (x < 0 || y < 0 || x > r.width || y > hero.getBoundingClientRect().bottom - r.top) { last = null; return; }
+      if (last && Math.hypot(x - last.x, y - last.y) < 36) return;   // a new drop every ~36px of travel
+      const dx = last ? x - last.x : 1, dy = last ? y - last.y : 0, m = Math.hypot(dx, dy) || 1;
+      last = { x, y }; drops.push({ x, y, t: performance.now(), dx: dx / m, dy: dy / m }); kick();
+    }, { passive: true });
+    window.motifColor = h => { if (!seen) { from = to = col = hex(h); colT0 = 0; return; } from = col; to = hex(h); colT0 = performance.now(); kick(); };
+    if (art.complete) size(); else art.onload = size;
+    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
+  })();
+
   // Hero "plays" the Featured Work projects: every 8 seconds the next project's colour and banner come up
   { const wrapEl = document.documentElement, ph = [...document.querySelectorAll('#np .ph')];
-    const tracks = [['#fa5298', '#141210'], ['#f8b62d', '#141210'], ['#ff7a48', '#141210'], ['#e2343c', '#fdfdfb']];  // Streetfeet, Persona, Walkarein, Evo9x
+    const tracks = [['#fa5298', '#141210', '#fe96ce'], ['#f8b62d', '#141210', '#ffe39a'], ['#ff7a48', '#141210', '#ffc96b'], ['#e2343c', '#fdfdfb', '#b21d2b']];  // Streetfeet, Persona, Walkarein, Evo9x: page colour, text, motif
     let k = 0;
-    const play = i => { ph[k].classList.remove('on'); k = i; ph[k].classList.add('on'); wrapEl.style.setProperty('--hc', tracks[k][0]); wrapEl.style.setProperty('--ht', tracks[k][1]); };
+    const play = i => { ph[k].classList.remove('on'); k = i; ph[k].classList.add('on'); wrapEl.style.setProperty('--hc', tracks[k][0]); wrapEl.style.setProperty('--ht', tracks[k][1]); window.motifColor?.(tracks[k][2]); };
     if (!REDUCE) setInterval(() => play((k + 1) % tracks.length), 8000);
   }
   const startHeadline = () => {
@@ -1175,7 +1359,8 @@ html{overflow-x:clip}
         c.querySelector('.dig').textContent = pad(h) + ':' + pad(m);
       });
     };
-    tick(); setInterval(tick, 1000);
+    tick(); let tickT = 0;
+    new IntersectionObserver(([e]) => { clearInterval(tickT); if (e.isIntersecting) { tick(); tickT = setInterval(tick, 1000); } }).observe(clocks[0].closest('.together') || clocks[0]);
   })();
 
   // Menu overlay: wipes down, links rise in one after another; closing reverses it
@@ -1205,11 +1390,20 @@ html{overflow-x:clip}
   // Top bar: hidden on the hero; it drops in once the big title starts sliding under where the bar sits,
   // i.e. the hero's name, players and menu button have all scrolled away (same point on every screen size)
   { const bar = document.querySelector('.wrap > .top'), heroEl = document.querySelector('.hero'), title = heroEl.querySelector('h1');
-    const upd = () => bar.classList.toggle('show', title.getBoundingClientRect().top < parseFloat(getComputedStyle(bar).top) + bar.offsetHeight);
+    // watch the title's top edge against a line one bar-height down the screen (no scroll handler);
+    // a fast scroll can deliver several updates at once, so only the newest one counts
+    let io;
+    const watch = () => { io?.disconnect(); io = new IntersectionObserver(es => { const e = es[es.length - 1]; bar.classList.toggle('show', e.boundingClientRect.top < (e.rootBounds ? e.rootBounds.top : bar.offsetHeight)); }, { rootMargin: -(bar.offsetHeight || 46) + 'px 0px 0px 0px', threshold: [0, 1] }); io.observe(mark); };
+    const mark = document.createElement('i'); mark.setAttribute('aria-hidden', 'true'); mark.style.cssText = 'display:block; height:1px; margin-bottom:-1px; pointer-events:none';
+    title.before(mark);
     // full-width bar flush to the top; its name and menu icon line up with the content edges of the cards below
     const fit = () => { const r = heroEl.getBoundingClientRect(), pad = parseFloat(getComputedStyle(heroEl).paddingLeft); bar.style.paddingLeft = (r.left + pad) + 'px'; bar.style.paddingRight = (document.documentElement.clientWidth - r.right + pad) + 'px'; };
     addEventListener('resize', fit); fit();
-    addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd(); }
+    addEventListener('resize', () => { clearTimeout(watch.t); watch.t = setTimeout(watch, 150); }); watch(); }
+
+  // Cassette reels only spin while the cassette is on screen
+  { const cass = document.querySelector('.cass');
+    if (cass) new IntersectionObserver(([e]) => cass.classList.toggle('on', e.isIntersecting)).observe(cass); }
 
   // Placeholder links do nothing yet
   document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
