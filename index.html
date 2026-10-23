@@ -263,7 +263,7 @@ a.np:hover{transform:translateY(-3px)}  /* a link to the B-Sides section, not a 
 .contact .mail{display:flex; align-items:center; gap:10px; min-width:0}
 .contact code{font-family:var(--label); font-size:clamp(13px, calc(11px + .36vw), 15px); user-select:all; border-bottom:1px solid var(--accent); padding-bottom:2px; overflow-wrap:anywhere}
 /* Contact: one big cassette (Side A). Shell, label, stripes, window and reels are flat shapes + pre-made grain; only the reels turn (transform) */
-.wrap > .bcard{position:relative; display:grid; place-items:center; padding-block:clamp(40px,6vw,96px) clamp(48px,7vw,120px); background:none; overflow:visible}  /* no card: the cassette floats on the desk */
+.wrap > .bcard{position:relative; display:grid; place-items:center; padding-block:clamp(40px,6vw,96px) clamp(48px,7vw,120px); background:none; overflow:visible; overflow-x:clip}  /* no card: the cassette floats on the desk */
 /* soft shadow: a pre-rendered rounded shadow (9-slice image), so no square corners and no live blur */
 .cass-wrap{position:relative; width:min(100%, 1120px, calc((100svh - 150px) * 1.58))}
 .cass-wrap::before{content:""; position:absolute; inset:-56px; pointer-events:none; border-image:url("assets/shadow-round.webp") 100 fill / 100px stretch}
@@ -462,7 +462,6 @@ a.np:hover{transform:translateY(-3px)}  /* a link to the B-Sides section, not a 
 .item.slip .ticket dl{flex:1; margin:0; border:0; padding:4px 10px 6px}
 .item.slip .ticket dl > div{border-top:1px dashed rgba(29,26,23,.35); min-height:36px; padding:0 2px}
 .item.slip .ticket dl > div:first-child{border-top:0}
-.item.slip .ticket .bars{flex:none; width:30px; margin:8px 8px 8px 0; color:#141210}
 .item.slip:hover .ticket{transform:rotate(-.6deg) translateY(2px)}
 
 /* B-Sides: records. A square sleeve with the vinyl peeking out; on hover the record slides further out and turns.
@@ -736,7 +735,6 @@ html{overflow-x:clip}
             <div><dt>Role</dt><dd>Identity, art direction</dd></div>
             <div><dt>Result</dt><dd class="red">3.6× ROAS · +43% conversion</dd></div>
           </dl>
-          <svg class="bars" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="30" height="1"/><rect x="0" y="3" width="30" height="1"/><rect x="0" y="7" width="30" height="3"/><rect x="0" y="12" width="30" height="1"/><rect x="0" y="14" width="30" height="1"/><rect x="0" y="18" width="30" height="2"/><rect x="0" y="21" width="30" height="1"/><rect x="0" y="24" width="30" height="2"/><rect x="0" y="28" width="30" height="1"/><rect x="0" y="31" width="30" height="1"/><rect x="0" y="33" width="30" height="2"/><rect x="0" y="37" width="30" height="1"/><rect x="0" y="40" width="30" height="2"/><rect x="0" y="44" width="30" height="2"/><rect x="0" y="47" width="30" height="2"/><rect x="0" y="52" width="30" height="1"/><rect x="0" y="55" width="30" height="1"/><rect x="0" y="59" width="30" height="2"/><rect x="0" y="62" width="30" height="2"/><rect x="0" y="65" width="30" height="2"/><rect x="0" y="69" width="30" height="1"/><rect x="0" y="73" width="30" height="3"/><rect x="0" y="78" width="30" height="3"/><rect x="0" y="84" width="30" height="1"/><rect x="0" y="87" width="30" height="2"/><rect x="0" y="91" width="30" height="1"/><rect x="0" y="93" width="30" height="1"/></svg>
         </div>
       </a>
       <a class="item slip" href="https://www.behance.net/gallery/256561689/Persona-Branding-the-World-of-Timefall-Valley" target="_blank" rel="noopener">
@@ -754,7 +752,6 @@ html{overflow-x:clip}
             <div><dt>Role</dt><dd>In-world branding</dd></div>
             <div><dt>Result</dt><dd class="red">20+ brands · 60+ props</dd></div>
           </dl>
-          <svg class="bars" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="30" height="1"/><rect x="0" y="3" width="30" height="1"/><rect x="0" y="7" width="30" height="3"/><rect x="0" y="12" width="30" height="1"/><rect x="0" y="14" width="30" height="1"/><rect x="0" y="18" width="30" height="2"/><rect x="0" y="21" width="30" height="1"/><rect x="0" y="24" width="30" height="2"/><rect x="0" y="28" width="30" height="1"/><rect x="0" y="31" width="30" height="1"/><rect x="0" y="33" width="30" height="2"/><rect x="0" y="37" width="30" height="1"/><rect x="0" y="40" width="30" height="2"/><rect x="0" y="44" width="30" height="2"/><rect x="0" y="47" width="30" height="2"/><rect x="0" y="52" width="30" height="1"/><rect x="0" y="55" width="30" height="1"/><rect x="0" y="59" width="30" height="2"/><rect x="0" y="62" width="30" height="2"/><rect x="0" y="65" width="30" height="2"/><rect x="0" y="69" width="30" height="1"/><rect x="0" y="73" width="30" height="3"/><rect x="0" y="78" width="30" height="3"/><rect x="0" y="84" width="30" height="1"/><rect x="0" y="87" width="30" height="2"/><rect x="0" y="91" width="30" height="1"/><rect x="0" y="93" width="30" height="1"/></svg>
         </div>
       </a>
       <a class="item slip" href="walkarein.html">
@@ -772,7 +769,6 @@ html{overflow-x:clip}
             <div><dt>Role</dt><dd>Identity, art direction</dd></div>
             <div><dt>Result</dt><dd>Unreleased</dd></div>
           </dl>
-          <svg class="bars" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="30" height="1"/><rect x="0" y="3" width="30" height="1"/><rect x="0" y="7" width="30" height="3"/><rect x="0" y="12" width="30" height="1"/><rect x="0" y="14" width="30" height="1"/><rect x="0" y="18" width="30" height="2"/><rect x="0" y="21" width="30" height="1"/><rect x="0" y="24" width="30" height="2"/><rect x="0" y="28" width="30" height="1"/><rect x="0" y="31" width="30" height="1"/><rect x="0" y="33" width="30" height="2"/><rect x="0" y="37" width="30" height="1"/><rect x="0" y="40" width="30" height="2"/><rect x="0" y="44" width="30" height="2"/><rect x="0" y="47" width="30" height="2"/><rect x="0" y="52" width="30" height="1"/><rect x="0" y="55" width="30" height="1"/><rect x="0" y="59" width="30" height="2"/><rect x="0" y="62" width="30" height="2"/><rect x="0" y="65" width="30" height="2"/><rect x="0" y="69" width="30" height="1"/><rect x="0" y="73" width="30" height="3"/><rect x="0" y="78" width="30" height="3"/><rect x="0" y="84" width="30" height="1"/><rect x="0" y="87" width="30" height="2"/><rect x="0" y="91" width="30" height="1"/><rect x="0" y="93" width="30" height="1"/></svg>
         </div>
       </a>
       <a class="item slip" href="https://www.behance.net/gallery/256358029/EVO9X-Design-Leadership-in-Custom-Athletic-Apparel" target="_blank" rel="noopener">
@@ -790,7 +786,6 @@ html{overflow-x:clip}
             <div><dt>Role</dt><dd>Apparel, design lead</dd></div>
             <div><dt>Result</dt><dd class="red">2,000+ orders · 10+ sports</dd></div>
           </dl>
-          <svg class="bars" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="30" height="1"/><rect x="0" y="3" width="30" height="1"/><rect x="0" y="7" width="30" height="3"/><rect x="0" y="12" width="30" height="1"/><rect x="0" y="14" width="30" height="1"/><rect x="0" y="18" width="30" height="2"/><rect x="0" y="21" width="30" height="1"/><rect x="0" y="24" width="30" height="2"/><rect x="0" y="28" width="30" height="1"/><rect x="0" y="31" width="30" height="1"/><rect x="0" y="33" width="30" height="2"/><rect x="0" y="37" width="30" height="1"/><rect x="0" y="40" width="30" height="2"/><rect x="0" y="44" width="30" height="2"/><rect x="0" y="47" width="30" height="2"/><rect x="0" y="52" width="30" height="1"/><rect x="0" y="55" width="30" height="1"/><rect x="0" y="59" width="30" height="2"/><rect x="0" y="62" width="30" height="2"/><rect x="0" y="65" width="30" height="2"/><rect x="0" y="69" width="30" height="1"/><rect x="0" y="73" width="30" height="3"/><rect x="0" y="78" width="30" height="3"/><rect x="0" y="84" width="30" height="1"/><rect x="0" y="87" width="30" height="2"/><rect x="0" y="91" width="30" height="1"/><rect x="0" y="93" width="30" height="1"/></svg>
         </div>
       </a>
     </div>
@@ -1016,7 +1011,12 @@ html{overflow-x:clip}
   // Desktop: size the headline so its longest line runs almost edge to edge (less empty space beside the short lines)
   const fitHeadline = () => {
     h1.style.fontSize = '';
-    if (innerWidth <= 520) return;
+    if (innerWidth <= 520) {   // phones: lines wrap word by word, so size it to the longest single word, nearly edge to edge
+      const fs = parseFloat(getComputedStyle(h1).fontSize);
+      const word = Math.max(...[...h1.querySelectorAll('.w')].map(w => w.getBoundingClientRect().width));
+      if (word) h1.style.fontSize = (fs * h1.clientWidth * .97 / word) + 'px';
+      return;
+    }
     const fs = parseFloat(getComputedStyle(h1).fontSize);
     const widest = Math.max(...[...h1.querySelectorAll('.li')].map(l => l.getBoundingClientRect().width));
     if (!widest) return;
@@ -1028,10 +1028,17 @@ html{overflow-x:clip}
   (() => {
     const box = document.getElementById('motif'), hero = document.querySelector('.hero');
     if (!box) return;
+    // the artwork is a pre-made greyscale mask (white = shape) with its soft focus already baked in: no SVG drawing or filters at run time
+    const soft = (ctx, d, p) => { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, p.W, p.H); ctx.drawImage(art, p.x, p.y, p.w, p.h); };
+    // parallax: the motif drifts down at 35% of the scroll speed, so it moves slower than everything in front of it (transform only, and only while the hero is on screen)
+    if (!REDUCE) { let pr = 0, on = true;
+      const move = () => { pr = 0; box.style.transform = 'translate3d(0,' + (scrollY * .35).toFixed(1) + 'px,0)'; };
+      new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) move(); }).observe(hero);
+      addEventListener('scroll', () => { if (on && !pr) pr = requestAnimationFrame(move); }, { passive: true }); }
     const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
     let col = hex('#fe96ce'), from = col, to = col, colT0 = 0;
     const COL_MS = 900;
-    const art = new Image(); art.src = 'assets/motif.svg';
+    const art = new Image(); art.decoding = 'async'; art.src = 'assets/motif.webp';
     const VW = 1004.81, VH = 799.14, ART_TOP = 40;   // artwork size in the SVG, and the empty space above the arch tips
     // Layout: centred; the arch tips start just below the B-Sides card; the bottom runs past the hero and tucks behind Featured Work.
     // The motif layer starts at the top of the page and is made as tall as the artwork needs.
@@ -1049,21 +1056,29 @@ html{overflow-x:clip}
     const place = () => ({ W: box.clientWidth, H: box.clientHeight, ...box._p });
     const canvas = document.createElement('canvas');
     const gl = !REDUCE && canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, preserveDrawingBuffer: true });   // kept between frames so only the rippled patch is redrawn
-    if (!gl) {   // fallback: a still image, recoloured by drawing it into a 2D canvas
-      const c2 = canvas.getContext('2d'); box.append(canvas);
-      const draw = () => { if (!art.complete) return; fitTop(); const p = place(), d = Math.min(devicePixelRatio || 1, 2);
-        canvas.width = p.W * d; canvas.height = p.H * d; canvas.style.width = p.W + 'px'; canvas.style.height = p.H + 'px';
-        c2.setTransform(d, 0, 0, d, 0, 0); c2.clearRect(0, 0, p.W, p.H); c2.drawImage(art, p.x, p.y, p.w, p.h);
-        c2.globalCompositeOperation = 'source-in'; c2.fillStyle = 'rgb(' + col.map(v => v * 255) + ')'; c2.fillRect(0, 0, p.W, p.H); c2.globalCompositeOperation = 'source-over'; };
-      art.onload = draw; addEventListener('resize', draw);
-      window.motifColor = h => { col = hex(h); draw(); };
-      return;
-    }
+    // fallback (no WebGL, or it fails on this device): a still, recoloured image in a 2D canvas
+    const still = () => {
+      box.textContent = ''; const cv = document.createElement('canvas'), c2 = cv.getContext('2d'); box.append(cv);
+      const draw = () => { if (!art.complete || !art.naturalWidth) return; fitTop(); const p = place(), d = Math.min(devicePixelRatio || 1, 2);
+        cv.width = Math.round(p.W * d); cv.height = Math.round(p.H * d); cv.style.width = p.W + 'px'; cv.style.height = p.H + 'px';
+        soft(c2, d, p);
+        const img = c2.getImageData(0, 0, cv.width, cv.height), px = img.data, c = col.map(v => v * 255);
+        for (let i = 0; i < px.length; i += 4) { const a = px[i]; px[i] = c[0]; px[i + 1] = c[1]; px[i + 2] = c[2]; px[i + 3] = a; }
+        c2.putImageData(img, 0, 0); };
+      if (art.complete) draw(); else art.addEventListener('load', draw);
+      addEventListener('resize', draw); window.motifColor = h => { col = hex(h); draw(); };
+    };
+    if (!gl) { still(); return; }
     box.append(canvas);
     const N = 12;   // ripple drops kept at once
     const vs = 'attribute vec2 p; varying vec2 uv; void main(){ uv = p * .5 + .5; uv.y = 1. - uv.y; gl_Position = vec4(p, 0., 1.); }';
-    const fs = `precision mediump float; varying vec2 uv; uniform sampler2D tex; uniform vec2 res; uniform vec3 col; uniform vec3 drops[${N}]; uniform vec2 dirs[${N}]; uniform float amp, ring, wamp;
-      float A(vec2 p){ return texture2D(tex, p / res).a; }
+    const fs = `#ifdef GL_FRAGMENT_PRECISION_HIGH
+      precision highp float;
+      #else
+      precision mediump float;
+      #endif
+      varying vec2 uv; uniform sampler2D tex; uniform vec2 res; uniform vec3 col; uniform vec3 drops[${N}]; uniform vec2 dirs[${N}]; uniform float amp, ring, wamp;
+      float A(vec2 p){ return texture2D(tex, p / res).r; }   // mask brightness = coverage
       void main(){
         vec2 px = uv * res, off = vec2(0.), dir = vec2(0.); float k = 0.;
         for (int i = 0; i < ${N}; i++) {
@@ -1096,7 +1111,12 @@ html{overflow-x:clip}
         gl_FragColor = vec4(mix(col * a, warm * a, clamp(spread * 1.6, 0., .85)), a);
       }`;
     // pass 2: a soft blur laid over the smeared, colour-split image, only inside the same feathered rings
-    const fs2 = `precision mediump float; uniform sampler2D img; uniform vec2 res; uniform vec3 drops[${N}]; uniform float ring, bamp;
+    const fs2 = `#ifdef GL_FRAGMENT_PRECISION_HIGH
+      precision highp float;
+      #else
+      precision mediump float;
+      #endif
+      uniform sampler2D img; uniform vec2 res; uniform vec3 drops[${N}]; uniform float ring, bamp;
       void main(){
         vec2 q = gl_FragCoord.xy / res, px = vec2(gl_FragCoord.x, res.y - gl_FragCoord.y); float k = 0.;
         for (int i = 0; i < ${N}; i++) {
@@ -1138,7 +1158,9 @@ html{overflow-x:clip}
       }`;
     const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); return s; };
     const prog = f => { const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, f)); gl.linkProgram(p); return p; };
-    const pr = prog(fs), pr2 = prog(fs2); gl.useProgram(pr);
+    const pr = prog(fs), pr2 = prog(fs2);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS) || !gl.getProgramParameter(pr2, gl.LINK_STATUS)) { still(); return; }
+    gl.useProgram(pr);
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     [pr, pr2].forEach(p => { const loc = gl.getAttribLocation(p, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0); });
     const U = n => gl.getUniformLocation(pr, n), uWamp = U('wamp'), uRes = U('res'), uCol = U('col'), uDrops = U('drops'), uDirs = U('dirs'), uAmp = U('amp'), uRing = U('ring');
@@ -1152,17 +1174,21 @@ html{overflow-x:clip}
     const off = document.createElement('canvas'), oc = off.getContext('2d');
     let dpr = 1, drops = [], raf = 0, last = null, prevBox = null, full = true, seen = true;
     const LIFE = 1700;   // ms a drop takes to settle back
+    let dead = false;
     const size = () => {
-      if (!art.complete || !art.naturalWidth) return;
+      if (dead || !art.complete || !art.naturalWidth) return;
       fitTop(); const p = place(); dpr = Math.min(devicePixelRatio || 1, 1.5);   // 1.5x is crisp for these flat shapes and much lighter than 2x
       canvas.width = off.width = Math.round(p.W * dpr); canvas.height = off.height = Math.round(p.H * dpr);
       canvas.style.width = p.W + 'px'; canvas.style.height = p.H + 'px';
-      oc.setTransform(dpr, 0, 0, dpr, 0, 0); oc.clearRect(0, 0, p.W, p.H); oc.drawImage(art, p.x, p.y, p.w, p.h);
+      soft(oc, dpr, p);
       gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, off);
       gl.bindTexture(gl.TEXTURE_2D, fboTex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, canvas.width, canvas.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); const ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE; gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      if (!ok || gl.isContextLost()) { dead = true; still(); return; }
       gl.viewport(0, 0, canvas.width, canvas.height); full = true; prevBox = null; frame();
     };
     const frame = () => {
+      if (dead) { raf = 0; return; }
       const now = performance.now();
       const t = Math.min(1, (now - colT0) / COL_MS); col = from.map((v, i) => v + (to[i] - v) * t);
       drops = drops.filter(d => now - d.t < LIFE);
@@ -1203,7 +1229,8 @@ html{overflow-x:clip}
       last = { x, y }; drops.push({ x, y, t: performance.now(), dx: dx / m, dy: dy / m }); kick();
     }, { passive: true });
     window.motifColor = h => { if (!seen) { from = to = col = hex(h); colT0 = 0; return; } from = col; to = hex(h); colT0 = performance.now(); kick(); };
-    if (art.complete) size(); else art.onload = size;
+    canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); dead = true; still(); });
+    if (art.complete) size(); else art.addEventListener('load', size);
     let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
   })();
 
@@ -1390,12 +1417,12 @@ html{overflow-x:clip}
   // Top bar: hidden on the hero; it drops in once the big title starts sliding under where the bar sits,
   // i.e. the hero's name, players and menu button have all scrolled away (same point on every screen size)
   { const bar = document.querySelector('.wrap > .top'), heroEl = document.querySelector('.hero'), title = heroEl.querySelector('h1');
-    // watch the title's top edge against a line one bar-height down the screen (no scroll handler);
-    // a fast scroll can deliver several updates at once, so only the newest one counts
-    let io;
-    const watch = () => { io?.disconnect(); io = new IntersectionObserver(es => { const e = es[es.length - 1]; bar.classList.toggle('show', e.boundingClientRect.top < (e.rootBounds ? e.rootBounds.top : bar.offsetHeight)); }, { rootMargin: -(bar.offsetHeight || 46) + 'px 0px 0px 0px', threshold: [0, 1] }); io.observe(mark); };
-    const mark = document.createElement('i'); mark.setAttribute('aria-hidden', 'true'); mark.style.cssText = 'display:block; height:1px; margin-bottom:-1px; pointer-events:none';
-    title.before(mark);
+    // show once the title's top edge passes under the bar. One cheap read per frame while scrolling.
+    // (An IntersectionObserver with a margin can't be used: inside an embedded frame, like the Claude preview, browsers ignore the margin.)
+    let pend = 0, barH = bar.offsetHeight || 46;
+    const upd = () => { pend = 0; bar.classList.toggle('show', title.getBoundingClientRect().top < barH); };
+    addEventListener('scroll', () => { if (!pend) pend = requestAnimationFrame(upd); }, { passive: true });
+    const watch = () => { barH = bar.offsetHeight || 46; upd(); };
     // full-width bar flush to the top; its name and menu icon line up with the content edges of the cards below
     const fit = () => { const r = heroEl.getBoundingClientRect(), pad = parseFloat(getComputedStyle(heroEl).paddingLeft); bar.style.paddingLeft = (r.left + pad) + 'px'; bar.style.paddingRight = (document.documentElement.clientWidth - r.right + pad) + 'px'; };
     addEventListener('resize', fit); fit();
